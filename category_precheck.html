@@ -1,0 +1,89 @@
+{template "content","header"}
+<style type="text/css">
+.tips{ display:none;}
+#rootwizard label{ cursor:pointer;}
+</style>
+<div class="container">
+<div class="page-header">
+  <h1>飞图广告印前检查</h1>
+</div>
+<div id="rootwizard">
+ <div id="bar" class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" ></div>
+  </div>
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul>
+          {pc:content action="category" catid="$catid" num="5" siteid="$siteid" order="listorder ASC"}
+          {loop $data $k $r}
+          <li><a href="#tab{$n}" data-toggle="tab">{$r[catname]}</a></li>
+          {/loop} 
+          {/pc}
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="checklist" class="row">
+    <div class="col-md-5 tab-content list-group"> {pc:content action="category" catid="$catid" num="5" siteid="$siteid" order="listorder ASC" return="data"}
+      {php $z=1;}
+      {loop $data $r}
+      <div class="tab-pane" id="tab{$z}"> {pc:content  action="lists" catid="$r['catid']" order="listorder asc" num="20" moreinfo="1" return="cont"} 
+        {loop $cont $k $r2}
+        <a href="javascript:void(0)" class="list-group-item"  data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="<p>{$r2['content']}</p>{if $r2['thumb']}<p><img class='center-block' style='max-width:240px;max-height:240px;' src='{$r2['thumb']}'></p>{/if}">
+        <input type="checkbox" name="check{$n}" id="check{$z}{$n}">
+        <label for="check{$z}{$n}">{$r2['title']}</label>
+        </a> 
+        {/loop} 
+        {/pc} 
+      </div>
+      {php $z++}
+      {/loop} 
+      {/pc}
+    </div>
+    <div id="show" class="col-md-7">
+    	<!--右侧-->
+        
+    </div>
+  </div>
+</div>
+
+<link href="{JS_PATH}skins/square/aero.css" rel="stylesheet">
+<script src="{JS_PATH}jquery.bootstrap.wizard.min.js"></script>
+<script src="{JS_PATH}icheck.min.js"></script> 
+<script>
+$(function() {
+	$('#rootwizard').bootstrapWizard();
+	$('#checklist').on("click","a",function(){$(this).find("input").iCheck('toggle');});
+	$('#checklist a').popover({
+		 animation:true,
+		 html:true,
+		 trigger:"hover",
+		 title:"提示",
+		 template:'<div id="popcontent" class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+		 });
+	$('#checklist input').iCheck({
+		checkboxClass: 'icheckbox_square-aero',
+		});
+	$('#checklist').on('ifChanged','input',function(event){
+ 		 SetProgressBar();
+	});
+
+});
+
+function SetProgressBar(){
+	var $total = $("#checklist input").size();
+	var $current = $("#checklist input:checked").size();
+	var $percent = parseInt(($current/$total) * 100);
+	$("#bar .progress-bar").css({width:$percent+'%'});
+	$("#bar .progress-bar").text($percent+'%');
+	var $g=parseInt($percent*2);
+	var $r=parseInt((100-$percent)*2);
+	var $rgb="rgb("+$r+","+$g+",0)";
+	$("#bar .progress-bar").css("background-color",$rgb);
+	}
+</script> 
+
+{template "content","footer"}

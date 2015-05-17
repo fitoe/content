@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<!--欢迎交流 QQ：247142185-->
+<head>
+<meta charset="utf-8">
+<title>{$title}</title>
+<script type="text/javascript" src="{JS_PATH}jquery-2.1.3.js"></script>
+<link href="{IMG_PATH}paiban/themes/pace-theme-loading-bar.css" rel="stylesheet">
+<script src="{IMG_PATH}paiban/pace.min.js"></script>
+<link rel="stylesheet" href="{IMG_PATH}paiban/jquery-ui.css" />
+<link href="{IMG_PATH}paiban/jquery.circliful.css" rel="stylesheet" type="text/css" />
+<link href="{IMG_PATH}paiban/ui-dialog.css" rel="stylesheet" type="text/css" />
+<link href="{IMG_PATH}paiban/font-awesome/font-awesome.min.css" rel="stylesheet">
+<link href="{IMG_PATH}paiban/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+<link href="{IMG_PATH}paiban/rocketopstyle.css" rel="stylesheet" type="text/css">
+<link href="{IMG_PATH}paiban/introjs.min.css" rel="stylesheet" type="text/css">
+<link href="{CSS_PATH}bootstrap.min.css" rel="stylesheet">
+<link href="{IMG_PATH}paiban/css.css" rel="stylesheet" type="text/css">
+<script src="{JS_PATH}bootstrap.min.js"></script>
+<!--<script type="text/javascript" src="{IMG_PATH}paiban/stickUp.min.js"></script>-->
+<script type="text/javascript" src="{IMG_PATH}paiban/jquery-ui.js"></script>
+<script src="{IMG_PATH}paiban/jquery.circliful.min.js"></script>
+<script>
+paceOptions = {
+		ajax: true,
+		document: true,
+		eventLag: true,
+		elements: true
+	};
+var thecatid={$catid};
+var theid={$id};
+var totalpics={count(string2array($pic_shop)["pics"])};
+</script>
+<script type="text/javascript" src="{IMG_PATH}paiban/jquery.editable.js"></script>
+<script type="text/javascript" src="{JS_PATH}invested/json.js"></script>
+<script src="{IMG_PATH}paiban/keymaster.js"></script>
+<script src="{IMG_PATH}paiban/dialog-min.js"></script>
+<script src="{IMG_PATH}paiban/jquery.mousewheel.min.js"></script>
+<script src="{IMG_PATH}paiban/jquery.mCustomScrollbar.js"></script>
+<script src="{IMG_PATH}paiban/rocketop.js"></script>
+<script src="{IMG_PATH}paiban/intro.min.js"></script>
+<script src="{JS_PATH}bootstrap.contextmenu.js"></script>
+<script type="text/javascript" src="{IMG_PATH}paiban/paiban.js" ></script>
+</head>
+
+<body>
+<nav id="navbar" class="navbar navbar-default navbar-static-top vis_hidn">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">导航切换</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand2" href="/"> <img alt="Brand" src="{IMG_PATH}logo.svg" width="120px" class="img-responsive" alt="飞图广告标志"> </a> </div>
+    <div class="nav navbar-nav navbar-right navbar-form">
+        <div class="input-group">
+        	<div class="input-group-addon"><i class="fa fa-search fa-flip-horizontal"></i></div>
+          <input id="Search" type="text" class="form-control" placeholder="搜索">
+        </div>
+    </div>
+    <!--/.nav-collapse --> 
+  </div>
+</nav>
+<!--toolbar-->
+
+<div id="foldermain" class="container">
+  <div class="row">
+    <div id="foldersbox" class="col-md-12 vis_hidn">
+      <div id="addfolder" class="ui-corner-all" title="新建文件夹"  data-toggle="modal"></div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row"> 
+    <!--左侧-->
+    <div id="leftpanel" class="col-md-2">
+      <div id="filter" class="list-group vis_hidn"> <a  class="list-group-item" id="allfolder" href="javascript:void(0);">全部图片<span class="badge bubble"> </span> </a> <a  class="list-group-item" id="nofenlei" href="javascript:void(0);">未分类<span class="badge bubble"> </span> </a> <a  class="list-group-item" id="norename" href="javascript:void(0);">未命名<span class="badge bubble"> </span> </a> <a  class="list-group-item hide" id="guide" href="javascript:void(0);">帮助<span class="badge bubble"></span> </a> <a  class="list-group-item hide" id="allnotes" href="javascript:void(0);">备注<span class="badge bubble"></span> </a> </div>
+      <ul class="list-group">
+        <li id="prg_item_div" class="list-group-item list-group-item-success vis_hidn">分类进度
+          <div class="progress">
+            <div id="prg_item" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">0% <span class="sr-only">0% Complete (success)</span> </div>
+          </div>
+        </li>
+        <li id="prg_name_div" class="list-group-item list-group-item-info vis_hidn">命名进度
+          <div class="progress">
+            <div id="prg_name" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">0% <span class="sr-only">0% Complete (success)</span> </div>
+          </div>
+        </li>
+        <li id="prg_guige_div" class="list-group-item list-group-item-warning vis_hidn">规格进度
+          <div class="progress">
+            <div id="prg_guige" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">0% <span class="sr-only">0% Complete (success)</span> </div>
+          </div>
+        </li>
+      </ul>
+      <div id="recycle" class="panel panel-default text-center vis_hidn">
+          <p class="text">回收站 <span class="badge bubble"> </span></p>
+      </div>
+      <div id="myStat" data-dimension="170" data-info="改名进度" data-text="0%" data-width="20" data-fontsize="25" data-percent="0" data-fgcolor="#61a9dc" data-bgcolor="#eee" title="点击查看未改名的照片"></div>
+      <div id="myStat2" data-dimension="170" data-info="分类进度" data-text="0%" data-width="20" data-fontsize="25" data-percent="0" data-fgcolor="#61a9dc" data-bgcolor="#eee" title="点击查看未分类的照片"></div>
+      <div id="myStat3" data-dimension="170" data-info="规格进度" data-text="0%" data-width="20" data-fontsize="25" data-percent="0" data-fgcolor="#61a9dc" data-bgcolor="#eee" title="点击查看未填写规格的照片"></div>
+   <div class="btn-toolbar center-block" role="toolbar" aria-label="...">
+      <div id="exbtn" class="btn-group vis_hidn" role="group" aria-label="...">
+          <button type="button" class="btn btn-default" title="历史记录" data-toggle="modal" data-target="#ModalHistory"><i class="fa fa-history"></i></button>
+          <button type="button" class="btn btn-default" title="下载数据"><i class="fa fa-download"></i></button>
+          <button id="SaveBtn" type="button" class="btn btn-default" title="保存"><i class='fa fa-check'> 就绪</i></button>
+        </div>
+</div>
+    </div>
+    <!--右侧-->
+    <div id="picbox" class="col-md-10 vis_hidn"> </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="SlideTitle">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-8 text-center"><img id="dia_img" /></div>
+          <div class="col-md-4">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="dia_title" class="col-sm-3 control-label">名 称:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="dia_title">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dia_ext" class="col-sm-3 control-label">规 格:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="dia_ext" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dia_ul" class="col-sm-3 control-label">分 类:</label>
+                <div class="col-sm-9">
+                  <ul id="dia_ul">
+                  </ul>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="note" class="col-sm-3 control-label">备 注:</label>
+                <div class="col-sm-9">
+                  <textarea id="note" class="form-control"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+         
+      </div>
+      <div class="modal-footer">
+     	 <button id='SlideDel' type="button" class="pull-left btn btn-default"><i class='fa fa-trash-o fa-lg'></i> 删除</button>
+        <button id="SlidePrev" type="button" class="btn btn-default">上一张</button>
+        <button id="SlideNext" type="button" class="btn btn-primary">下一张</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--新建文件夹对话框-->
+<div class="modal fade" id="ModalCreatFolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="CreatModalLabel">新建文件夹</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label for="NewFolderName" id="CreatFolderLabel" class="control-label">文件夹名称</label>
+            <input type="text" class="form-control" id="NewFolderName" placeholder="新建文件夹"  aria-describedby="helpBlock">
+            <span id="helpBlock" class="help-block"></span>
+         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+        <button id="folderok" type="button" class="btn btn-primary">确 定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--历史记录对话框-->
+<div class="modal fade" id="ModalHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">历史记录</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+           <div class="row">
+              <div class="historyleft col-md-4"></div>
+              <div class="col-md-8">
+              <table id="historylist" class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <th scope="col">名称</th>
+                      <th scope="col">时间</th>
+                      <th scope="col">操作</th>
+                    </tr>
+                    <!--<tr><td>1</td><td>自动保存</td><td>2015-03-21 15:16:24</td><td><button type="button" class="btn btn-default btn-xs"><i class="fa fa-reply"></i> 恢复</button></td></tr>-->
+                  </tbody>
+                </table>
+           <nav>
+              <ul class="pager">
+                <li><a href="#">上一页</a></li>
+                <li><a href="#">下一页</a></li>
+              </ul>
+            </nav>
+
+              </div>
+            </div>
+           <span id="historyhelpBlock" class="help-block"></span>
+
+         </div>
+      </div>
+      <div class="modal-footer">
+      	<button id="HistoryOk" type="button" class="btn btn-primary">确 定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="thumbs"> {loop string2array($pic_shop) $pic_k $r} <img src="{thumb($r[url],160, 140,0)}"> {/loop} </div>
+<img src="/statics/images/paiban/folder-sel.png" width="0" height="0" alt=""/>
+<div style="display:none; z-index:120" id="rocket-to-top">
+  <div style="opacity:0;display:block;" class="level-2"></div>
+  <div class="level-3"></div>
+</div>
+</body>
+</html>

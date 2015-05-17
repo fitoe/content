@@ -1,0 +1,77 @@
+{template "content","header"}
+<div class="container marketing"> 
+  
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+  {pc:content action="category" catid="9" num="5" siteid="$siteid" order="listorder ASC"}
+   {loop $data $r}
+    <div class="col-lg-4">
+      <h2>{$r[catname]}</h2>
+      <p><img class="img-circle" src="{$r[image]}" alt="{$r[catname]}" style="width: 150px; height: 150px;"></p>
+      <p>{$r[description]}</p>
+      <p><a class="btn btn-default" href="{$r[url]}" role="button">详细介绍 &raquo;</a></p>
+    </div>
+    {/loop} 
+    {/pc}
+    
+  </div>
+  <!-- /.row --> 
+  
+  <!-- START THE FEATURETTES -->
+  {pc:content  action="lists" catid="61" order="listorder asc" num="6" moreinfo="1"} 
+  {loop $data $n $r}
+  <hr class="featurette-divider">
+  <div class="row featurette">
+  {if $n%2==0}
+    <div class="col-md-7">
+      <h2 class="featurette-heading">{$r['title']}</h2>
+      <p class="lead">{$r['content']}</p>
+      {if $r['btn']}<p><a class="btn btn-default pull-right" href="#" role="button">{$r['btn']} &raquo;</a></p>{/if}
+    </div>
+    <div class="col-md-5"> <img class="featurette-image img-responsive" src="{$r['thumb']}" data-src="{$r['thumb']}" alt="Generic placeholder image"> </div>
+    {else}
+    <div class="col-md-5"> <img class="featurette-image img-responsive" src="{$r['thumb']}" data-src="{$r['thumb']}" alt="Generic placeholder image"> </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">{$r['title']}</h2>
+      <p class="lead">{$r['content']}</p>
+      {if $r['btn']}<p><a class="btn btn-default pull-right" href="#" role="button">{$r['btn']} &raquo;</a></p>{/if}
+    </div>
+    {/if}
+  </div>
+{/loop} 
+{/pc}
+  
+  <hr class="featurette-divider">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>产品展示</h1>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <h3>劳保系列</h3>
+      <p><img class="img-rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%; height: 140px;"></p>
+      <p>衣物的平整和色彩还原都是影响照片质量的原因。</p>
+      <p><a class="btn btn-default pull-right" href="#" role="button">详细介绍 &raquo;</a></p>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <h3>家具产品</h3>
+      <p><img class="img-rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%; height: 140px;"></p>
+      <p>优质的布光能让木材更有重量感，搭配简洁大气的排版。</p>
+      <p><a class="btn btn-default pull-right" href="#" role="button">详细介绍 &raquo;</a></p>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <h3>集成吊顶</h3>
+      <p><img class="img-rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%; height: 140px;"></p>
+      <p>根据产品特点选择拍摄方式，后期对浅色花纹的处理很重要。</p>
+      <p><a class="btn btn-default pull-right" href="#" role="button">详细介绍 &raquo;</a></p>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <h3>五金工具</h3>
+      <p><img class="img-rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%; height: 140px;"></p>
+      <p>如何提现产品的质感，以及直观方便的数据表格呈现。</p>
+      <p><a class="btn btn-default pull-right" href="#" role="button">详细介绍 &raquo;</a></p>
+    </div>
+  </div>
+  <!-- /END THE FEATURETTES --> 
+  
+
+{template "content","footer"}

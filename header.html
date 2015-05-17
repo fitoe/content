@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+<link rel="icon" href="">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="{CSS_PATH}style.css" rel="stylesheet">
+<link href="{CSS_PATH}unslider.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="{JS_PATH}unslider.min.js"></script>
+<script type="text/javascript" src="{JS_PATH}function.js"></script>
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">导航切换</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand2" href="/"> <img alt="Brand" src="{IMG_PATH}logo.svg" width="120px" class="img-responsive" alt="飞图广告标志"> </a> <a class="navbar-brand" href="/" title="返回首页">飞图广告</a> </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        {pc:content action="category" catid="0" num="8" siteid="$siteid" order="listorder ASC"}
+        {loop $data $r}<!--二级下拉菜单--> 
+        {php $nowcatid=$r[catid];}
+        {pc:content action="category" catid="$nowcatid" siteid="$siteid" order="listorder ASC" return="data1"}
+        {if count($data1)==0}
+        <li><a href="{if $r[description]}{$r[description]}{else}{$r[url]}{/if}">{$r[catname]}</a></li>
+        {/if}
+        {if count($data1)>0}
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{$r[catname]} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            {loop $data1 $v}
+            <li><a href="{$v[url]}">{$v[catname]}{if $v[catid]!=$CATEGORYS[$v[catid]][arrchildid]}{/if}</a></li>
+            {/loop}
+          </ul>
+        </li>
+        {/if}
+        {/pc} 
+        <!--二级下拉菜单END-->{/loop}
+        {/pc}
+        {php echo runhook('glogal_menu')}
+        {if $top_parentid}
+        {/if}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="../navbar-static-top/">English</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse --> 
+  </div>
+</nav>
+<!--幻灯内容-->{pc:content  action="lists" catid="7" order="listorder asc" num="6" moreinfo="1"}
+<div class="banner" style="height: 415px;">
+  <ul>
+    {loop $data $r}
+    <li style="background-image: url('{$r['thumb']}');">
+      <div class="inner">
+        <h1>{$r['title']}</h1>
+        <p>{$r['content']}</p>
+        {if $r['btn']}<a class="btn btn-primary btn-sm" href="{$r['url']} role="button"">{$r['btn']}</a>{/if} </div>
+    </li>
+    {/loop} 
+    {/pc}
+  </ul>
+</div>

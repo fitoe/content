@@ -1,0 +1,61 @@
+@charset "utf-8";
+.clear{ clear:both;}
+hr{ border:1px solid #E5E5E5; margin: 10px 20px;}
+ul,li{ padding:0; margin:0,}
+.main{ width:980px;margin:0 auto;}
+.banner{width:980px;height:160px; background:url(logo.jpg) 20px center no-repeat; }
+.hidden{display:none;}
+#foldersbox .folder input,.pic input{ width:120px; text-align:center;}
+.ui-state-highlight { width:170px; height:170px;  margin:12px;float:left;border:1px dotted #3F57A4; background-color:#ABC0EB ; }
+
+/*弹出大图提示框*/
+#dialog{ width:900px; height:600px;}
+
+/*工具栏*/
+#topbox{ width:980px;min-height:160px; background-color:white; z-index:99; margin:0 0 20px 0; border-bottom:1px solid #B1B1B1;
+-moz-box-shadow: 0px 5px 5px #000;
+-webkit-box-shadow: 0px 5px 5px #888;
+box-shadow: 0px 5px 5px #888;}
+/*下载工具栏*/
+#showdown{ height:30px; line-height:30px; vertical-align:middle; text-indent:2em; background:#F7F7F7; border:solid 1px #5988AA; display:none;}
+#showdown a{ text-decoration:none; color:#494949;}
+#showdown a:hover{ color:#BD0064;}
+.lefttoolbox{ width:120px; height:160px; float:left;}
+.lefttoolbox ul{ margin:0 0 0 10px; padding:0; border-right:1px solid #D8D8D8;}
+.lefttoolbox li{list-style:none; text-indent:1.8em;  font: bold 12px "宋体"; line-height:26px; color:#6B6B6B; cursor:pointer;}
+.lefttoolbox li a{ text-decoration:none;color:#6B6B6B;}
+.lefttoolbox li a:hover{ color:#51A6F4;}
+.lefttoolbox li:hover{ background-color:#E6F7FF;}
+.lefttoolbox  .ico-cfolder{background:url(add-folder.png) left center no-repeat;}
+.lefttoolbox  .ico-cfolder16{background:url(folder16.png) left center no-repeat;}
+.lefttoolbox  .ico-recycle{background:url(recycle16.png) left center no-repeat;}
+.lefttoolbox  .ico-download{background:url(download.png) left center no-repeat;}
+.lefttoolbox  .ico-history{background:url(history.png) left center no-repeat;}
+/*历史记录*/
+#historylist{ width:350px; height:250px; position:relative; top:0px; display:none; background:white; border:1px solid gray;-moz-box-shadow: 0px 5px 15px #000;-webkit-box-shadow: 0px 5px 15px #888;box-shadow: 0px 5px 15px #888;}
+#historylist li{ font:normal 14px "宋体"; color:black; height:26px; line-height:26px; vertical-align:middle; float:left;}
+#historylist li .icon-pic{ background:url(pic.png) left center no-repeat;}
+#historylist li:hover{ background-color:#FFEEFA;}
+/*文件夹列表*/
+#foldersbox{ width:860px;  float:left;}
+.folder{ width:140px; height:120px; background: url(folder.png) center 12px no-repeat; margin:10px 10px 0 10px; float:left;}
+.folder:hover{background:#D1E8FF url(folder.png) center 12px no-repeat; cursor:pointer;}
+.folderdrop{background:#D1E8FF url(folder.png) center 12px no-repeat; cursor:pointer;}
+#foldersbox .selected{background:#D1E8FF url(folder-sel.png) center 12px no-repeat;}
+.folder .text{ font: normal 12px "宋体"; width:140px; height:16px; line-height:16px; text-align:center; vertical-align: middle; position:relative; top:100px; cursor:text; }
+.folder .bubble{font:bold 16px "宋体"; width:32px; height:32px; line-height:32px; vertical-align:middle; text-align:center; color:white;  position:relative;top:50px; left:100px; background:url(tips-circly.png) center center no-repeat;}
+
+/*图片列表*/
+#picbox{ width:980px;}
+#picbox .selected{background:#D1E8FF; border-color:#407BB8;}
+.pic{ width:170px; height:170px;  margin:12px; float:left;text-align:center; border:1px solid #E5E5E5; background-color:white;
+-moz-box-shadow: 0px 3px 2px #000;
+-webkit-box-shadow: 0px 3px 2px #888;
+box-shadow: 0px 3px 2px #888;}
+.photo{ width:170px; height:170px;display: table-cell;vertical-align:bottom;text-align:center; *display: block;*font-size: 175px;*font-family:Arial; }
+.pic .text{ font: normal 12px "宋体"; width:170px; height:16px; line-height:16px; text-align:center; vertical-align: middle;  cursor:text; margin:5px 0; }
+.pic img{ max-height:140px; max-width:160px;vertical-align:bottom;}
+
+
+/*装饰*/
+#allfolder .bubble,#nofenlei .bubble,#recycle .bubble{ font:normal 14px "宋体";  color:white;text-indent:0; background-color:#DB0003; margin-left:2px; width:20px; height:20px; display: inline-block; text-align:center; vertical-align:middle; border-radius:13px;}

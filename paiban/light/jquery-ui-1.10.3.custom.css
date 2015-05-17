@@ -1,0 +1,1177 @@
+/*! jQuery UI - v1.10.3 - 2013-07-10
+* http://jqueryui.com
+* Includes: jquerylight .ui.core.css, jquerylight .ui.resizable.css, jquerylight .ui.selectable.css, jquerylight .ui.accordion.css, jquerylight .ui.autocomplete.css, jquerylight .ui.button.css, jquerylight .ui.datepicker.css, jquerylight .ui.dialog.css, jquerylight .ui.menu.css, jquerylight .ui.progressbar.css, jquerylight .ui.slider.css, jquerylight .ui.spinner.css, jquerylight .ui.tabs.css, jquerylight .ui.tooltip.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Trebuchet%20MS%2CTahoma%2CVerdana%2CArial%2Csans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=f6a828&bgTextureHeader=gloss_wave&bgImgOpacityHeader=35&borderColorHeader=e78f08&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=eeeeee&bgTextureContent=highlight_soft&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=333333&iconColorContent=222222&bgColorDefault=f6f6f6&bgTextureDefault=glass&bgImgOpacityDefault=100&borderColorDefault=cccccc&fcDefault=1c94c4&iconColorDefault=ef8c08&bgColorHover=fdf5ce&bgTextureHover=glass&bgImgOpacityHover=100&borderColorHover=fbcb09&fcHover=c77405&iconColorHover=ef8c08&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=fbd850&fcActive=eb8f00&iconColorActive=ef8c08&bgColorHighlight=ffe45c&bgTextureHighlight=highlight_soft&bgImgOpacityHighlight=75&borderColorHighlight=fed22f&fcHighlight=363636&iconColorHighlight=228ef1&bgColorError=b81900&bgTextureError=diagonals_thick&bgImgOpacityError=18&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffd27a&bgColorOverlay=666666&bgTextureOverlay=diagonals_thick&bgImgOpacityOverlay=20&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=flat&bgImgOpacityShadow=10&opacityShadow=20&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=5px
+* Copyright 2013 jQuery Foundation and other contributors Licensed MIT */
+
+/* Layout helpers
+----------------------------------*/
+light .ui-helper-hidden {
+	display: none;
+}
+light .ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+light .ui-helper-reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+light .ui-helper-clearfix:before,
+light .ui-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+light .ui-helper-clearfix:after {
+	clear: both;
+}
+light .ui-helper-clearfix {
+	min-height: 0; /* support: IE7 */
+}
+light .ui-helper-zfix {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	filter:Alpha(Opacity=0);
+}
+
+light .ui-front {
+	z-index: 100;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+light .ui-state-disabled {
+	cursor: default !important;
+}
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+light .ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+light .ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+light .ui-resizable {
+	position: relative;
+}
+light .ui-resizable-handle {
+	position: absolute;
+	font-size: 0.1px;
+	display: block;
+}
+light .ui-resizable-disabled .ui-resizable-handle,
+light .ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+}
+light .ui-resizable-n {
+	cursor: n-resize;
+	height: 7px;
+	width: 100%;
+	top: -5px;
+	left: 0;
+}
+light .ui-resizable-s {
+	cursor: s-resize;
+	height: 7px;
+	width: 100%;
+	bottom: -5px;
+	left: 0;
+}
+light .ui-resizable-e {
+	cursor: e-resize;
+	width: 7px;
+	right: -5px;
+	top: 0;
+	height: 100%;
+}
+light .ui-resizable-w {
+	cursor: w-resize;
+	width: 7px;
+	left: -5px;
+	top: 0;
+	height: 100%;
+}
+light .ui-resizable-se {
+	cursor: se-resize;
+	width: 12px;
+	height: 12px;
+	right: 1px;
+	bottom: 1px;
+}
+light .ui-resizable-sw {
+	cursor: sw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	bottom: -5px;
+}
+light .ui-resizable-nw {
+	cursor: nw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	top: -5px;
+}
+light .ui-resizable-ne {
+	cursor: ne-resize;
+	width: 9px;
+	height: 9px;
+	right: -5px;
+	top: -5px;
+}
+light .ui-selectable-helper {
+	position: absolute;
+	z-index: 100;
+	border: 1px dotted black;
+}
+light .ui-accordion .ui-accordion-header {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin-top: 2px;
+	padding: .5em .5em .5em .7em;
+	min-height: 0; /* support: IE7 */
+}
+light .ui-accordion .ui-accordion-icons {
+	padding-left: 2.2em;
+}
+light .ui-accordion .ui-accordion-noicons {
+	padding-left: .7em;
+}
+light .ui-accordion .ui-accordion-icons .ui-accordion-icons {
+	padding-left: 2.2em;
+}
+light .ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	position: absolute;
+	left: .5em;
+	top: 50%;
+	margin-top: -8px;
+}
+light .ui-accordion .ui-accordion-content {
+	padding: 1em 2.2em;
+	border-top: 0;
+	overflow: auto;
+}
+light .ui-autocomplete {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: default;
+}
+light .ui-button {
+	display: inline-block;
+	position: relative;
+	padding: 0;
+	line-height: normal;
+	margin-right: .1em;
+	cursor: pointer;
+	vertical-align: middle;
+	text-align: center;
+	overflow: visible; /* removes extra width in IE */
+}
+light .ui-button,
+light .ui-button:link,
+light .ui-button:visited,
+light .ui-button:hover,
+light .ui-button:active {
+	text-decoration: none;
+}
+/* to make room for the icon, a width needs to be set here */
+light .ui-button-icon-only {
+	width: 2.2em;
+}
+/* button elements seem to need a little more width */
+buttonlight .ui-button-icon-only {
+	width: 2.4em;
+}
+light .ui-button-icons-only {
+	width: 3.4em;
+}
+buttonlight .ui-button-icons-only {
+	width: 3.7em;
+}
+
+/* button text element */
+light .ui-button .ui-button-text {
+	display: block;
+	line-height: normal;
+}
+light .ui-button-text-only .ui-button-text {
+	padding: .4em 1em;
+}
+light .ui-button-icon-only .ui-button-text,
+light .ui-button-icons-only .ui-button-text {
+	padding: .4em;
+	text-indent: -9999999px;
+}
+light .ui-button-text-icon-primary .ui-button-text,
+light .ui-button-text-icons .ui-button-text {
+	padding: .4em 1em .4em 2.1em;
+}
+light .ui-button-text-icon-secondary .ui-button-text,
+light .ui-button-text-icons .ui-button-text {
+	padding: .4em 2.1em .4em 1em;
+}
+light .ui-button-text-icons .ui-button-text {
+	padding-left: 2.1em;
+	padding-right: 2.1em;
+}
+/* no icon support for input elements, provide padding by default */
+inputlight .ui-button {
+	padding: .4em 1em;
+}
+
+/* button icon element(s) */
+light .ui-button-icon-only .ui-icon,
+light .ui-button-text-icon-primary .ui-icon,
+light .ui-button-text-icon-secondary .ui-icon,
+light .ui-button-text-icons .ui-icon,
+light .ui-button-icons-only .ui-icon {
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+}
+light .ui-button-icon-only .ui-icon {
+	left: 50%;
+	margin-left: -8px;
+}
+light .ui-button-text-icon-primary .ui-button-icon-primary,
+light .ui-button-text-icons .ui-button-icon-primary,
+light .ui-button-icons-only .ui-button-icon-primary {
+	left: .5em;
+}
+light .ui-button-text-icon-secondary .ui-button-icon-secondary,
+light .ui-button-text-icons .ui-button-icon-secondary,
+light .ui-button-icons-only .ui-button-icon-secondary {
+	right: .5em;
+}
+
+/* button sets */
+light .ui-buttonset {
+	margin-right: 7px;
+}
+light .ui-buttonset .ui-button {
+	margin-left: 0;
+	margin-right: -.3em;
+}
+
+/* workarounds */
+/* reset extra padding in Firefox, see h5bp.com/l */
+inputlight .ui-button::-moz-focus-inner,
+buttonlight .ui-button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+light .ui-datepicker {
+	width: 17em;
+	padding: .2em .2em 0;
+	display: none;
+}
+light .ui-datepicker .ui-datepicker-header {
+	position: relative;
+	padding: .2em 0;
+}
+light .ui-datepicker .ui-datepicker-prev,
+light .ui-datepicker .ui-datepicker-next {
+	position: absolute;
+	top: 2px;
+	width: 1.8em;
+	height: 1.8em;
+}
+light .ui-datepicker .ui-datepicker-prev-hover,
+light .ui-datepicker .ui-datepicker-next-hover {
+	top: 1px;
+}
+light .ui-datepicker .ui-datepicker-prev {
+	left: 2px;
+}
+light .ui-datepicker .ui-datepicker-next {
+	right: 2px;
+}
+light .ui-datepicker .ui-datepicker-prev-hover {
+	left: 1px;
+}
+light .ui-datepicker .ui-datepicker-next-hover {
+	right: 1px;
+}
+light .ui-datepicker .ui-datepicker-prev span,
+light .ui-datepicker .ui-datepicker-next span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -8px;
+	top: 50%;
+	margin-top: -8px;
+}
+light .ui-datepicker .ui-datepicker-title {
+	margin: 0 2.3em;
+	line-height: 1.8em;
+	text-align: center;
+}
+light .ui-datepicker .ui-datepicker-title select {
+	font-size: 1em;
+	margin: 1px 0;
+}
+light .ui-datepicker select.ui-datepicker-month-year {
+	width: 100%;
+}
+light .ui-datepicker select.ui-datepicker-month,
+light .ui-datepicker select.ui-datepicker-year {
+	width: 49%;
+}
+light .ui-datepicker table {
+	width: 100%;
+	font-size: .9em;
+	border-collapse: collapse;
+	margin: 0 0 .4em;
+}
+light .ui-datepicker th {
+	padding: .7em .3em;
+	text-align: center;
+	font-weight: bold;
+	border: 0;
+}
+light .ui-datepicker td {
+	border: 0;
+	padding: 1px;
+}
+light .ui-datepicker td span,
+light .ui-datepicker td a {
+	display: block;
+	padding: .2em;
+	text-align: right;
+	text-decoration: none;
+}
+light .ui-datepicker .ui-datepicker-buttonpane {
+	background-image: none;
+	margin: .7em 0 0 0;
+	padding: 0 .2em;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+light .ui-datepicker .ui-datepicker-buttonpane button {
+	float: right;
+	margin: .5em .2em .4em;
+	cursor: pointer;
+	padding: .2em .6em .3em .6em;
+	width: auto;
+	overflow: visible;
+}
+light .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+	float: left;
+}
+
+/* with multiple calendars */
+light .ui-datepicker.ui-datepicker-multi {
+	width: auto;
+}
+light .ui-datepicker-multi .ui-datepicker-group {
+	float: left;
+}
+light .ui-datepicker-multi .ui-datepicker-group table {
+	width: 95%;
+	margin: 0 auto .4em;
+}
+light .ui-datepicker-multi-2 .ui-datepicker-group {
+	width: 50%;
+}
+light .ui-datepicker-multi-3 .ui-datepicker-group {
+	width: 33.3%;
+}
+light .ui-datepicker-multi-4 .ui-datepicker-group {
+	width: 25%;
+}
+light .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+light .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+	border-left-width: 0;
+}
+light .ui-datepicker-multi .ui-datepicker-buttonpane {
+	clear: left;
+}
+light .ui-datepicker-row-break {
+	clear: both;
+	width: 100%;
+	font-size: 0;
+}
+
+/* RTL support */
+light .ui-datepicker-rtl {
+	direction: rtl;
+}
+light .ui-datepicker-rtl .ui-datepicker-prev {
+	right: 2px;
+	left: auto;
+}
+light .ui-datepicker-rtl .ui-datepicker-next {
+	left: 2px;
+	right: auto;
+}
+light .ui-datepicker-rtl .ui-datepicker-prev:hover {
+	right: 1px;
+	left: auto;
+}
+light .ui-datepicker-rtl .ui-datepicker-next:hover {
+	left: 1px;
+	right: auto;
+}
+light .ui-datepicker-rtl .ui-datepicker-buttonpane {
+	clear: right;
+}
+light .ui-datepicker-rtl .ui-datepicker-buttonpane button {
+	float: left;
+}
+light .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+light .ui-datepicker-rtl .ui-datepicker-group {
+	float: right;
+}
+light .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+light .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+	border-right-width: 0;
+	border-left-width: 1px;
+}
+light .ui-dialog {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: .2em;
+	outline: 0;
+}
+light .ui-dialog .ui-dialog-titlebar {
+	padding: .4em 1em;
+	position: relative;
+}
+light .ui-dialog .ui-dialog-title {
+	float: left;
+	margin: .1em 0;
+	white-space: nowrap;
+	width: 90%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+light .ui-dialog .ui-dialog-titlebar-close {
+	position: absolute;
+	right: .3em;
+	top: 50%;
+	width: 21px;
+	margin: -10px 0 0 0;
+	padding: 1px;
+	height: 20px;
+}
+light .ui-dialog .ui-dialog-content {
+	position: relative;
+	border: 0;
+	padding: .5em 1em;
+	background: none;
+	overflow: auto;
+}
+light .ui-dialog .ui-dialog-buttonpane {
+	text-align: left;
+	border-width: 1px 0 0 0;
+	background-image: none;
+	margin-top: .5em;
+	padding: .3em 1em .5em .4em;
+}
+light .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: right;
+}
+light .ui-dialog .ui-dialog-buttonpane button {
+	margin: .5em .4em .5em 0;
+	cursor: pointer;
+}
+light .ui-dialog .ui-resizable-se {
+	width: 12px;
+	height: 12px;
+	right: -5px;
+	bottom: -5px;
+	background-position: 16px 16px;
+}
+light .ui-draggable .ui-dialog-titlebar {
+	cursor: move;
+}
+light .ui-menu {
+	list-style: none;
+	padding: 2px;
+	margin: 0;
+	display: block;
+	outline: none;
+}
+light .ui-menu .ui-menu {
+	margin-top: -3px;
+	position: absolute;
+}
+light .ui-menu .ui-menu-item {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	/* support: IE10, see #8844 */
+	list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+light .ui-menu .ui-menu-divider {
+	margin: 5px -2px 5px -2px;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	border-width: 1px 0 0 0;
+}
+light .ui-menu .ui-menu-item a {
+	text-decoration: none;
+	display: block;
+	padding: 2px .4em;
+	line-height: 1.5;
+	min-height: 0; /* support: IE7 */
+	font-weight: normal;
+}
+light .ui-menu .ui-menu-item a.ui-state-focus,
+light .ui-menu .ui-menu-item a.ui-state-active {
+	font-weight: normal;
+	margin: -1px;
+}
+
+light .ui-menu .ui-state-disabled {
+	font-weight: normal;
+	margin: .4em 0 .2em;
+	line-height: 1.5;
+}
+light .ui-menu .ui-state-disabled a {
+	cursor: default;
+}
+
+/* icon support */
+light .ui-menu-icons {
+	position: relative;
+}
+light .ui-menu-icons .ui-menu-item a {
+	position: relative;
+	padding-left: 2em;
+}
+
+/* left-aligned */
+light .ui-menu .ui-icon {
+	position: absolute;
+	top: .2em;
+	left: .2em;
+}
+
+/* right-aligned */
+light .ui-menu .ui-menu-icon {
+	position: static;
+	float: right;
+}
+light .ui-progressbar {
+	height: 2em;
+	text-align: left;
+	overflow: hidden;
+}
+light .ui-progressbar .ui-progressbar-value {
+	margin: -1px;
+	height: 100%;
+}
+light .ui-progressbar .ui-progressbar-overlay {
+	background: url("images/animated-overlay.gif");
+	height: 100%;
+	filter: alpha(opacity=25);
+	opacity: 0.25;
+}
+light .ui-progressbar-indeterminate .ui-progressbar-value {
+	background-image: none;
+}
+light .ui-slider {
+	position: relative;
+	text-align: left;
+}
+light .ui-slider .ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	width: 1.2em;
+	height: 1.2em;
+	cursor: default;
+}
+light .ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+	background-position: 0 0;
+}
+
+/* For IE8 - See #6727 */
+light .ui-slider.ui-state-disabled .ui-slider-handle,
+light .ui-slider.ui-state-disabled .ui-slider-range {
+	filter: inherit;
+}
+
+light .ui-slider-horizontal {
+	height: .8em;
+}
+light .ui-slider-horizontal .ui-slider-handle {
+	top: -.3em;
+	margin-left: -.6em;
+}
+light .ui-slider-horizontal .ui-slider-range {
+	top: 0;
+	height: 100%;
+}
+light .ui-slider-horizontal .ui-slider-range-min {
+	left: 0;
+}
+light .ui-slider-horizontal .ui-slider-range-max {
+	right: 0;
+}
+
+light .ui-slider-vertical {
+	width: .8em;
+	height: 100px;
+}
+light .ui-slider-vertical .ui-slider-handle {
+	left: -.3em;
+	margin-left: 0;
+	margin-bottom: -.6em;
+}
+light .ui-slider-vertical .ui-slider-range {
+	left: 0;
+	width: 100%;
+}
+light .ui-slider-vertical .ui-slider-range-min {
+	bottom: 0;
+}
+light .ui-slider-vertical .ui-slider-range-max {
+	top: 0;
+}
+light .ui-spinner {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	padding: 0;
+	vertical-align: middle;
+}
+light .ui-spinner-input {
+	border: none;
+	background: none;
+	color: inherit;
+	padding: 0;
+	margin: .2em 0;
+	vertical-align: middle;
+	margin-left: .4em;
+	margin-right: 22px;
+}
+light .ui-spinner-button {
+	width: 16px;
+	height: 50%;
+	font-size: .5em;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	position: absolute;
+	cursor: default;
+	display: block;
+	overflow: hidden;
+	right: 0;
+}
+/* more specificity required here to overide default borders */
+light .ui-spinner a.ui-spinner-button {
+	border-top: none;
+	border-bottom: none;
+	border-right: none;
+}
+/* vertical centre icon */
+light .ui-spinner .ui-icon {
+	position: absolute;
+	margin-top: -8px;
+	top: 50%;
+	left: 0;
+}
+light .ui-spinner-up {
+	top: 0;
+}
+light .ui-spinner-down {
+	bottom: 0;
+}
+
+/* TR overrides */
+light .ui-spinner .ui-icon-triangle-1-s {
+	/* need to fix icons sprite */
+	background-position: -65px -16px;
+}
+light .ui-tabs {
+	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	padding: .2em;
+}
+light .ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding: .2em .2em 0;
+}
+light .ui-tabs .ui-tabs-nav li {
+	list-style: none;
+	float: left;
+	position: relative;
+	top: 0;
+	margin: 1px .2em 0 0;
+	border-bottom-width: 0;
+	padding: 0;
+	white-space: nowrap;
+}
+light .ui-tabs .ui-tabs-nav li a {
+	float: left;
+	padding: .5em 1em;
+	text-decoration: none;
+}
+light .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	margin-bottom: -1px;
+	padding-bottom: 1px;
+}
+light .ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+light .ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+light .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+	cursor: text;
+}
+light .ui-tabs .ui-tabs-nav li a, /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+light .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+	cursor: pointer;
+}
+light .ui-tabs .ui-tabs-panel {
+	display: block;
+	border-width: 0;
+	padding: 1em 1.4em;
+	background: none;
+}
+light .ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+body light .ui-tooltip {
+	border-width: 2px;
+}
+
+/* Component containers
+----------------------------------*/
+light .ui-widget {
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-size: 1.1em;
+}
+light .ui-widget .ui-widget {
+	font-size: 1em;
+}
+light .ui-widget input,
+light .ui-widget select,
+light .ui-widget textarea,
+light .ui-widget button {
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-size: 1em;
+}
+light .ui-widget-content {
+	border: 1px solid #dddddd;
+	background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;
+	color: #333333;
+}
+light .ui-widget-content a {
+	color: #333333;
+}
+light .ui-widget-header {
+	border: 1px solid #e78f08;
+	background: #f6a828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: bold;
+}
+light .ui-widget-header a {
+	color: #ffffff;
+}
+
+/* Interaction states
+----------------------------------*/
+light .ui-state-default,
+light .ui-widget-content .ui-state-default,
+light .ui-widget-header .ui-state-default {
+	border: 1px solid #cccccc;
+	background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #1c94c4;
+}
+light .ui-state-default a,
+light .ui-state-default a:link,
+light .ui-state-default a:visited {
+	color: #1c94c4;
+	text-decoration: none;
+}
+light .ui-state-hover,
+light .ui-widget-content .ui-state-hover,
+light .ui-widget-header .ui-state-hover,
+light .ui-state-focus,
+light .ui-widget-content .ui-state-focus,
+light .ui-widget-header .ui-state-focus {
+	border: 1px solid #fbcb09;
+	background: #fdf5ce url(images/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #c77405;
+}
+light .ui-state-hover a,
+light .ui-state-hover a:hover,
+light .ui-state-hover a:link,
+light .ui-state-hover a:visited {
+	color: #c77405;
+	text-decoration: none;
+}
+light .ui-state-active,
+light .ui-widget-content .ui-state-active,
+light .ui-widget-header .ui-state-active {
+	border: 1px solid #fbd850;
+	background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #eb8f00;
+}
+light .ui-state-active a,
+light .ui-state-active a:link,
+light .ui-state-active a:visited {
+	color: #eb8f00;
+	text-decoration: none;
+}
+
+/* Interaction Cues
+----------------------------------*/
+light .ui-state-highlight,
+light .ui-widget-content .ui-state-highlight,
+light .ui-widget-header .ui-state-highlight {
+	border: 1px solid #fed22f;
+	background: #ffe45c url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x;
+	color: #363636;
+}
+light .ui-state-highlight a,
+light .ui-widget-content .ui-state-highlight a,
+light .ui-widget-header .ui-state-highlight a {
+	color: #363636;
+}
+light .ui-state-error,
+light .ui-widget-content .ui-state-error,
+light .ui-widget-header .ui-state-error {
+	border: 1px solid #cd0a0a;
+	background: #b81900 url(images/ui-bg_diagonals-thick_18_b81900_40x40.png) 50% 50% repeat;
+	color: #ffffff;
+}
+light .ui-state-error a,
+light .ui-widget-content .ui-state-error a,
+light .ui-widget-header .ui-state-error a {
+	color: #ffffff;
+}
+light .ui-state-error-text,
+light .ui-widget-content .ui-state-error-text,
+light .ui-widget-header .ui-state-error-text {
+	color: #ffffff;
+}
+light .ui-priority-primary,
+light .ui-widget-content .ui-priority-primary,
+light .ui-widget-header .ui-priority-primary {
+	font-weight: bold;
+}
+light .ui-priority-secondary,
+light .ui-widget-content .ui-priority-secondary,
+light .ui-widget-header .ui-priority-secondary {
+	opacity: .7;
+	filter:Alpha(Opacity=70);
+	font-weight: normal;
+}
+light .ui-state-disabled,
+light .ui-widget-content .ui-state-disabled,
+light .ui-widget-header .ui-state-disabled {
+	opacity: .35;
+	filter:Alpha(Opacity=35);
+	background-image: none;
+}
+light .ui-state-disabled .ui-icon {
+	filter:Alpha(Opacity=35); /* For IE8 - See #6059 */
+}
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+light .ui-icon {
+	width: 16px;
+	height: 16px;
+}
+light .ui-icon,
+light .ui-widget-content .ui-icon {
+	background-image: url(images/ui-icons_222222_256x240.png);
+}
+light .ui-widget-header .ui-icon {
+	background-image: url(images/ui-icons_ffffff_256x240.png);
+}
+light .ui-state-default .ui-icon {
+	background-image: url(images/ui-icons_ef8c08_256x240.png);
+}
+light .ui-state-hover .ui-icon,
+light .ui-state-focus .ui-icon {
+	background-image: url(images/ui-icons_ef8c08_256x240.png);
+}
+light .ui-state-active .ui-icon {
+	background-image: url(images/ui-icons_ef8c08_256x240.png);
+}
+light .ui-state-highlight .ui-icon {
+	background-image: url(images/ui-icons_228ef1_256x240.png);
+}
+light .ui-state-error .ui-icon,
+light .ui-state-error-text .ui-icon {
+	background-image: url(images/ui-icons_ffd27a_256x240.png);
+}
+
+/* positioning */
+light .ui-icon-blank { background-position: 16px 16px; }
+light .ui-icon-carat-1-n { background-position: 0 0; }
+light .ui-icon-carat-1-ne { background-position: -16px 0; }
+light .ui-icon-carat-1-e { background-position: -32px 0; }
+light .ui-icon-carat-1-se { background-position: -48px 0; }
+light .ui-icon-carat-1-s { background-position: -64px 0; }
+light .ui-icon-carat-1-sw { background-position: -80px 0; }
+light .ui-icon-carat-1-w { background-position: -96px 0; }
+light .ui-icon-carat-1-nw { background-position: -112px 0; }
+light .ui-icon-carat-2-n-s { background-position: -128px 0; }
+light .ui-icon-carat-2-e-w { background-position: -144px 0; }
+light .ui-icon-triangle-1-n { background-position: 0 -16px; }
+light .ui-icon-triangle-1-ne { background-position: -16px -16px; }
+light .ui-icon-triangle-1-e { background-position: -32px -16px; }
+light .ui-icon-triangle-1-se { background-position: -48px -16px; }
+light .ui-icon-triangle-1-s { background-position: -64px -16px; }
+light .ui-icon-triangle-1-sw { background-position: -80px -16px; }
+light .ui-icon-triangle-1-w { background-position: -96px -16px; }
+light .ui-icon-triangle-1-nw { background-position: -112px -16px; }
+light .ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+light .ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+light .ui-icon-arrow-1-n { background-position: 0 -32px; }
+light .ui-icon-arrow-1-ne { background-position: -16px -32px; }
+light .ui-icon-arrow-1-e { background-position: -32px -32px; }
+light .ui-icon-arrow-1-se { background-position: -48px -32px; }
+light .ui-icon-arrow-1-s { background-position: -64px -32px; }
+light .ui-icon-arrow-1-sw { background-position: -80px -32px; }
+light .ui-icon-arrow-1-w { background-position: -96px -32px; }
+light .ui-icon-arrow-1-nw { background-position: -112px -32px; }
+light .ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+light .ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+light .ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+light .ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+light .ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+light .ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+light .ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+light .ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+light .ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+light .ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+light .ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+light .ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+light .ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+light .ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+light .ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+light .ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+light .ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+light .ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+light .ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+light .ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+light .ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+light .ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+light .ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+light .ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+light .ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+light .ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+light .ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+light .ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+light .ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+light .ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+light .ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+light .ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+light .ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+light .ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+light .ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+light .ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+light .ui-icon-arrow-4 { background-position: 0 -80px; }
+light .ui-icon-arrow-4-diag { background-position: -16px -80px; }
+light .ui-icon-extlink { background-position: -32px -80px; }
+light .ui-icon-newwin { background-position: -48px -80px; }
+light .ui-icon-refresh { background-position: -64px -80px; }
+light .ui-icon-shuffle { background-position: -80px -80px; }
+light .ui-icon-transfer-e-w { background-position: -96px -80px; }
+light .ui-icon-transferthick-e-w { background-position: -112px -80px; }
+light .ui-icon-folder-collapsed { background-position: 0 -96px; }
+light .ui-icon-folder-open { background-position: -16px -96px; }
+light .ui-icon-document { background-position: -32px -96px; }
+light .ui-icon-document-b { background-position: -48px -96px; }
+light .ui-icon-note { background-position: -64px -96px; }
+light .ui-icon-mail-closed { background-position: -80px -96px; }
+light .ui-icon-mail-open { background-position: -96px -96px; }
+light .ui-icon-suitcase { background-position: -112px -96px; }
+light .ui-icon-comment { background-position: -128px -96px; }
+light .ui-icon-person { background-position: -144px -96px; }
+light .ui-icon-print { background-position: -160px -96px; }
+light .ui-icon-trash { background-position: -176px -96px; }
+light .ui-icon-locked { background-position: -192px -96px; }
+light .ui-icon-unlocked { background-position: -208px -96px; }
+light .ui-icon-bookmark { background-position: -224px -96px; }
+light .ui-icon-tag { background-position: -240px -96px; }
+light .ui-icon-home { background-position: 0 -112px; }
+light .ui-icon-flag { background-position: -16px -112px; }
+light .ui-icon-calendar { background-position: -32px -112px; }
+light .ui-icon-cart { background-position: -48px -112px; }
+light .ui-icon-pencil { background-position: -64px -112px; }
+light .ui-icon-clock { background-position: -80px -112px; }
+light .ui-icon-disk { background-position: -96px -112px; }
+light .ui-icon-calculator { background-position: -112px -112px; }
+light .ui-icon-zoomin { background-position: -128px -112px; }
+light .ui-icon-zoomout { background-position: -144px -112px; }
+light .ui-icon-search { background-position: -160px -112px; }
+light .ui-icon-wrench { background-position: -176px -112px; }
+light .ui-icon-gear { background-position: -192px -112px; }
+light .ui-icon-heart { background-position: -208px -112px; }
+light .ui-icon-star { background-position: -224px -112px; }
+light .ui-icon-link { background-position: -240px -112px; }
+light .ui-icon-cancel { background-position: 0 -128px; }
+light .ui-icon-plus { background-position: -16px -128px; }
+light .ui-icon-plusthick { background-position: -32px -128px; }
+light .ui-icon-minus { background-position: -48px -128px; }
+light .ui-icon-minusthick { background-position: -64px -128px; }
+light .ui-icon-close { background-position: -80px -128px; }
+light .ui-icon-closethick { background-position: -96px -128px; }
+light .ui-icon-key { background-position: -112px -128px; }
+light .ui-icon-lightbulb { background-position: -128px -128px; }
+light .ui-icon-scissors { background-position: -144px -128px; }
+light .ui-icon-clipboard { background-position: -160px -128px; }
+light .ui-icon-copy { background-position: -176px -128px; }
+light .ui-icon-contact { background-position: -192px -128px; }
+light .ui-icon-image { background-position: -208px -128px; }
+light .ui-icon-video { background-position: -224px -128px; }
+light .ui-icon-script { background-position: -240px -128px; }
+light .ui-icon-alert { background-position: 0 -144px; }
+light .ui-icon-info { background-position: -16px -144px; }
+light .ui-icon-notice { background-position: -32px -144px; }
+light .ui-icon-help { background-position: -48px -144px; }
+light .ui-icon-check { background-position: -64px -144px; }
+light .ui-icon-bullet { background-position: -80px -144px; }
+light .ui-icon-radio-on { background-position: -96px -144px; }
+light .ui-icon-radio-off { background-position: -112px -144px; }
+light .ui-icon-pin-w { background-position: -128px -144px; }
+light .ui-icon-pin-s { background-position: -144px -144px; }
+light .ui-icon-play { background-position: 0 -160px; }
+light .ui-icon-pause { background-position: -16px -160px; }
+light .ui-icon-seek-next { background-position: -32px -160px; }
+light .ui-icon-seek-prev { background-position: -48px -160px; }
+light .ui-icon-seek-end { background-position: -64px -160px; }
+light .ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+light .ui-icon-seek-first { background-position: -80px -160px; }
+light .ui-icon-stop { background-position: -96px -160px; }
+light .ui-icon-eject { background-position: -112px -160px; }
+light .ui-icon-volume-off { background-position: -128px -160px; }
+light .ui-icon-volume-on { background-position: -144px -160px; }
+light .ui-icon-power { background-position: 0 -176px; }
+light .ui-icon-signal-diag { background-position: -16px -176px; }
+light .ui-icon-signal { background-position: -32px -176px; }
+light .ui-icon-battery-0 { background-position: -48px -176px; }
+light .ui-icon-battery-1 { background-position: -64px -176px; }
+light .ui-icon-battery-2 { background-position: -80px -176px; }
+light .ui-icon-battery-3 { background-position: -96px -176px; }
+light .ui-icon-circle-plus { background-position: 0 -192px; }
+light .ui-icon-circle-minus { background-position: -16px -192px; }
+light .ui-icon-circle-close { background-position: -32px -192px; }
+light .ui-icon-circle-triangle-e { background-position: -48px -192px; }
+light .ui-icon-circle-triangle-s { background-position: -64px -192px; }
+light .ui-icon-circle-triangle-w { background-position: -80px -192px; }
+light .ui-icon-circle-triangle-n { background-position: -96px -192px; }
+light .ui-icon-circle-arrow-e { background-position: -112px -192px; }
+light .ui-icon-circle-arrow-s { background-position: -128px -192px; }
+light .ui-icon-circle-arrow-w { background-position: -144px -192px; }
+light .ui-icon-circle-arrow-n { background-position: -160px -192px; }
+light .ui-icon-circle-zoomin { background-position: -176px -192px; }
+light .ui-icon-circle-zoomout { background-position: -192px -192px; }
+light .ui-icon-circle-check { background-position: -208px -192px; }
+light .ui-icon-circlesmall-plus { background-position: 0 -208px; }
+light .ui-icon-circlesmall-minus { background-position: -16px -208px; }
+light .ui-icon-circlesmall-close { background-position: -32px -208px; }
+light .ui-icon-squaresmall-plus { background-position: -48px -208px; }
+light .ui-icon-squaresmall-minus { background-position: -64px -208px; }
+light .ui-icon-squaresmall-close { background-position: -80px -208px; }
+light .ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+light .ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+light .ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+light .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+light .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+light .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+light .ui-corner-all,
+light .ui-corner-top,
+light .ui-corner-left,
+light .ui-corner-tl {
+	border-top-left-radius: 4px;
+}
+light .ui-corner-all,
+light .ui-corner-top,
+light .ui-corner-right,
+light .ui-corner-tr {
+	border-top-right-radius: 4px;
+}
+light .ui-corner-all,
+light .ui-corner-bottom,
+light .ui-corner-left,
+light .ui-corner-bl {
+	border-bottom-left-radius: 4px;
+}
+light .ui-corner-all,
+light .ui-corner-bottom,
+light .ui-corner-right,
+light .ui-corner-br {
+	border-bottom-right-radius: 4px;
+}
+
+/* Overlays */
+light .ui-widget-overlay {
+	background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat;
+	opacity: .5;
+	filter: Alpha(Opacity=50);
+}
+light .ui-widget-shadow {
+	margin: -5px 0 0 -5px;
+	padding: 5px;
+	background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x;
+	opacity: .2;
+	filter: Alpha(Opacity=20);
+	border-radius: 5px;
+}
