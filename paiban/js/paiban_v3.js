@@ -74,7 +74,7 @@ function savepic() {
 	alldata={"folder":fdata,"pics":jdata};
 	
 	$.ajax({
-		url: "/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -98,7 +98,7 @@ function savepic() {
 function getpic() {
 	GetFields();
 	$.ajax({
-		url: "/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -157,7 +157,6 @@ function GetFields(){
 	}
 //生成幻灯大图里的字段
 function FillSlideFields(){
-	console.info("Fields.length："+Fields.length);
 	if(Fields.length){
 	for(i=0;i<Fields.length;i++){
 		$("#fieldname").before("<div class='form-group'><label for='"+"dia_"+Fields[i][1]+"' class='col-sm-3 control-label'>"+Fields[i][0]+":</label><div class='col-sm-9'><input type='text' class='form-control fields' role='"+Fields[i][1]+"' id='"+"dia_"+Fields[i][1]+"' ></div></div>");
@@ -342,7 +341,7 @@ function MakeMemolistClickable(){
 //恢复历史记录
 function RestoreHistory(hisid){
 	$.ajax({
-		url: "/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -387,7 +386,7 @@ function RestoreHistory(hisid){
 //获取历史记录
 function gethistory(page) {
 	$.ajax({
-		url: "/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -779,9 +778,9 @@ function refreshbubble() {
 	$("#recycle .bubble").text($("#picbox li[fenlei='回收站']").size());
 	//回收站满了的样式
 	if($('#recycle .bubble').text()!=="0"){
-		$("#recycle").css("background-image","url(/statics/images/paiban/recycled.png)");
+		$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycled.png)");
 		} else {
-		$("#recycle").css("background-image","url(/statics/images/paiban/recycle.png)");
+		$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycle.png)");
 			}
 }
 //刷新备注气泡
@@ -1484,11 +1483,11 @@ function Init() {
 }
 //集中预加载图像
 function loadimage(){
-	PreloadImg("/statics/images/paiban/folder.png");
-	PreloadImg("/statics/images/paiban/folder-sel.png");
-	PreloadImg("/statics/images/paiban/folder-hover.png");
-	PreloadImg("/statics/images/paiban/recycled.png");
-	PreloadImg("/statics/images/paiban/recycled-hover.png");
+	PreloadImg("/phpcms/templates/default/content/paiban/images/folder.png");
+	PreloadImg("/phpcms/templates/default/content/paiban/images/folder-sel.png");
+	PreloadImg("/phpcms/templates/default/content/paiban/images/folder-hover.png");
+	PreloadImg("/phpcms/templates/default/content/paiban/images/recycled.png");
+	PreloadImg("/phpcms/templates/default/content/paiban/images/recycled-hover.png");
 	}
 
 function after(){

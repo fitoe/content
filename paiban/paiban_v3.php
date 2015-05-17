@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_DEPRECATED);
 mysql_query("set character set 'utf8'");//读库 
 mysql_query("set names 'utf8'");//写库 
-include("phpcms/libs/functions/global.func.php");
+include($_SERVER['DOCUMENT_ROOT']."phpcms/libs/functions/global.func.php");
 @$action=$_POST['action'];
 @$catid=$_POST['catid'];
 @$id=$_POST['id'];

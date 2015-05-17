@@ -4,18 +4,18 @@
 <head>
 <meta charset="utf-8">
 <title>{$title}</title>
-<script type="text/javascript" src="{JS_PATH}jquery-2.1.3.js"></script>
-<link href="{IMG_PATH}paiban/themes/pace-theme-loading-bar.css" rel="stylesheet">
-<script src="{IMG_PATH}paiban/pace.min.js"></script>
-<link rel="stylesheet" href="{IMG_PATH}paiban/jquery-ui.css" />
-<link href="{IMG_PATH}paiban/jquery.circliful.css" rel="stylesheet" type="text/css" />
-<link href="{IMG_PATH}paiban/ui-dialog.css" rel="stylesheet" type="text/css" />
-<link href="{IMG_PATH}paiban/font-awesome/font-awesome.min.css" rel="stylesheet">
-<link href="{IMG_PATH}paiban/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
-<link href="{IMG_PATH}paiban/rocketopstyle.css" rel="stylesheet" type="text/css">
-<link href="{IMG_PATH}paiban/introjs.min.css" rel="stylesheet" type="text/css">
-<link href="{CSS_PATH}bootstrap.min.css" rel="stylesheet">
-<link href="{IMG_PATH}paiban/css_v3.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="phpcms/templates/default/content/paiban/js/jquery-2.1.3.js"></script>
+<link href="phpcms/templates/default/content/paiban/css/themes/pace-theme-loading-bar.css" rel="stylesheet">
+<script src="phpcms/templates/default/content/paiban/js/pace.min.js"></script>
+<link rel="stylesheet" href="phpcms/templates/default/content/paiban/css/jquery-ui.css" />
+<link href="phpcms/templates/default/content/paiban/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+<link href="phpcms/templates/default/content/paiban/css/ui-dialog.css" rel="stylesheet" type="text/css" />
+<link href="phpcms/templates/default/content/paiban/css/font-awesome.min.css" rel="stylesheet">
+<link href="phpcms/templates/default/content/paiban/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+<link href="phpcms/templates/default/content/paiban/css/rocketopstyle.css" rel="stylesheet" type="text/css">
+<link href="phpcms/templates/default/content/paiban/css/introjs.min.css" rel="stylesheet" type="text/css">
+<link href="phpcms/templates/default/content/paiban/css/bootstrap.min.css" rel="stylesheet">
+<link href="phpcms/templates/default/content/paiban/css/css_v3.css" rel="stylesheet" type="text/css">
 {pc:get sql="SELECT * FROM fitoe_paiban a,fitoe_paiban_data b WHERE (a.id=b.id and a.catid=$catid and a.id=$id) ORDER BY a.id DESC" num=1 return="data" moreinfo="1"}
 
 {loop $data $key $val}
@@ -25,10 +25,10 @@ $pic_shop=$val[pic_shop];
 ?>
 {/loop}
 {/pc}
-<script src="{JS_PATH}bootstrap.min.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/bootstrap.min.js"></script>
 <!--<script type="text/javascript" src="{IMG_PATH}paiban/stickUp.min.js"></script>-->
-<script type="text/javascript" src="{IMG_PATH}paiban/jquery-ui.js"></script>
-<script src="{IMG_PATH}paiban/jquery.circliful.min.js"></script>
+<script type="text/javascript" src="/phpcms/templates/default/content/paiban/js/jquery-ui.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/jquery.circliful.min.js"></script>
 <script>
 paceOptions = {
 		ajax: true,
@@ -40,16 +40,16 @@ var thecatid={$catid};
 var theid={$id};
 var thefields='{$canshu}';
 </script>
-<script type="text/javascript" src="{IMG_PATH}paiban/jquery.editable.js"></script>
-<script type="text/javascript" src="{JS_PATH}invested/json.js"></script>
-<script src="{IMG_PATH}paiban/keymaster.js"></script>
-<script src="{IMG_PATH}paiban/dialog-min.js"></script>
-<script src="{IMG_PATH}paiban/jquery.mousewheel.min.js"></script>
-<script src="{IMG_PATH}paiban/jquery.mCustomScrollbar.js"></script>
-<script src="{IMG_PATH}paiban/rocketop.js"></script>
-<script src="{IMG_PATH}paiban/intro.min.js"></script>
-<script src="{JS_PATH}bootstrap.contextmenu.js"></script>
-<script type="text/javascript" src="{IMG_PATH}paiban/paiban_v3.js" ></script>
+<script type="text/javascript" src="/phpcms/templates/default/content/paiban/js/jquery.editable.js"></script>
+<script type="text/javascript" src="/phpcms/templates/default/content/paiban/js/json.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/keymaster.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/dialog-min.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/jquery.mousewheel.min.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/jquery.mCustomScrollbar.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/rocketop.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/intro.min.js"></script>
+<script src="/phpcms/templates/default/content/paiban/js/bootstrap.contextmenu.js"></script>
+<script type="text/javascript" src="/phpcms/templates/default/content/paiban/js/paiban_v3.js" ></script>
 </head>
 
 <body>
