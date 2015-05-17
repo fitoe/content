@@ -74,7 +74,7 @@ function savepic() {
 	alldata={"folder":fdata,"pics":jdata};
 	
 	$.ajax({
-		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -98,7 +98,7 @@ function savepic() {
 function getpic() {
 	GetFields();
 	$.ajax({
-		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -341,7 +341,7 @@ function MakeMemolistClickable(){
 //恢复历史记录
 function RestoreHistory(hisid){
 	$.ajax({
-		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban.php",
 		type: "POST",
 		cache: false,
 		data: {
@@ -386,7 +386,7 @@ function RestoreHistory(hisid){
 //获取历史记录
 function gethistory(page) {
 	$.ajax({
-		url: "/phpcms/templates/default/content/paiban/paiban_v3.php",
+		url: "/phpcms/templates/default/content/paiban/paiban.php",
 		type: "POST",
 		cache: false,
 		data: {
