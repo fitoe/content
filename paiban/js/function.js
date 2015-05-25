@@ -25,7 +25,6 @@ function Saver(){
 	}
 
 
-
 //保存图片
 function savepic() {
 	//文件夹数组
@@ -406,7 +405,14 @@ function gethistory(page) {
 		}
 	});
 }
-
+//清空回收站
+function ClearRecycled() {
+	$("#picbox li[fenlei='回收站']").remove();
+	refreshbubble(); 
+	RefreshFenleiProgress();
+	RefreshRenameProgress(); 
+	NotSave();
+}
 //删除图片
 function delpic(picobj) {
 	if ($(picobj).attr("fenlei") == "回收站") {
@@ -685,8 +691,31 @@ function PreloadImg(src) {
 
 //刷新重命名进度
 function RefreshRenameProgress() {
+	
+	var a = GetAllPics();
+	var b = GetNoName();
+	console.info("信息："+b);
+	var rename = Math.floor(b * 100 / a);
+	$("#norename .bubble").text(a - b);
+	if (rename == 100) {
+		$("#prg_name").text("完成");
+	} else {
+		$('#prg_name').text(rename + "%");
+		}
+	$('#prg_name').css("width", rename + "%");
+}
+
+//获取全部图片
+function GetAllPics(){
+	return $("#allfolder .bubble").text();
+	}
+//获取未分类图片
+function GetNoFenlei(){
+	return $("#nofenlei .bubble").text();
+	}
+//获取未命名图片
+function GetNoName(){
 	var named = 0;
-	var a = $("#picbox li").size()-$("#picbox li[fenlei='回收站']").size();
 	$("#picbox li").each(function(index, element) {
 		var b = $(this).find("img").attr("alt");
 		var c = $(this).find(".text").text();
@@ -694,23 +723,14 @@ function RefreshRenameProgress() {
 			named++;
 		}
 	});
-	var rename = Math.floor(named * 100 / a);
-	$("#norename .bubble").text(a - named);
-	$('#myStat').empty();
-	if (rename == 100) {
-		$("#prg_name").text("完成");
-	} else {
-		$('#prg_name').text(rename + "%");
-		}
-	$('#prg_name').css("width", rename + "%");
-	
-}
+	return named;
+	}
 //刷新分类进度
 function RefreshFenleiProgress() {
 	var fenleied = 0;
-	var a = $("#picbox li").size();
-	var b = $("#picbox li[fenlei!='未分类']").size();
-	var fenleied = Math.floor(b * 100 / a);
+	var a = GetAllPics();
+	var b = GetNoFenlei();
+	var fenleied = Math.floor((a-b) * 100 / a);
 	if (fenleied == 100) {
 		$("#prg_item").text("完成");
 	} else {
@@ -947,24 +967,23 @@ function MakePicsSortable(){
 	}
 function contactmenu(){
 
-//文件夹菜单
+//文件夹右键菜单
         var menu = {};
-        menu['new'] 			= {icon:'fa-folder-o',text:'新建文件夹',click:function(target,element){$("#addfolder").trigger("click");}};
-        menu['rename'] 		= {icon:'fa-pencil-square-o',text:'重命名',click:function(target,element){
+        menu['contactmenu_newfolder'] 			= {icon:'fa-folder-o',text:'新建文件夹',click:function(target,element){$("#addfolder").trigger("click");}};
+        menu['contactmenu_rename'] 		= {icon:'fa-pencil-square-o',text:'重命名',click:function(target,element){
 			selfolder(target);
 			$("#ModalCreatFolder").modal('show');
 			}};
-        menu['del'] 			= {icon:'fa-times',text:'删除',click:function(target,element){delfolder(target);}};
+        menu['contactmenu_del'] 			= {icon:'fa-times',text:'删除',click:function(target,element){delfolder(target);}};
         $('#foldersbox li').contextMenu(menu);
 //文件夹空白区域点击
 		var menu = {};
-        menu['new'] 			= {icon:'fa-folder-o',text:'新建文件夹',click:function(target,element){$("#addfolder").trigger("click");}};
+        menu['contactmenu_new2'] 			= {icon:'fa-folder-o',text:'新建文件夹',click:function(target,element){$("#addfolder").trigger("click");}};
 		$('#foldersbox').contextMenu(menu);
-//图片上点击
-/*        var menu = {};
-		menu['open'] 			= {icon:'fa-folder-open-o',text:' 查看',click:function(target,element){$(target).trigger("dblclick");}};
-        menu['del'] 			= {icon:'fa-times',text:'删除',click:function(target,element){delpic(target);}};
-        $('#picbox li').contextMenu(menu);*/
+//回收站上点击
+		var menu = {};
+        menu['contactmenu_clear'] 			= {icon:'fa-folder-o',text:'清空回收站',click:function(target,element){ClearRecycled();}};
+		$('#recycle').contextMenu(menu);
 	}
 	
 //标记任务进度
