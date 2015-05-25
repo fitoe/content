@@ -132,8 +132,6 @@ function getpic() {
 	}
 	$(document).queue('at3',myload2);
 	haveload2();
-	PicNum=new GetPics();
-	PicNum.getall;
 		}
 });
 }
@@ -410,9 +408,7 @@ function gethistory(page) {
 //清空回收站
 function ClearRecycled() {
 	$("#picbox li[fenlei='回收站']").remove();
-	refreshbubble(); 
-	RefreshFenleiProgress();
-	RefreshRenameProgress(); 
+	PicNum.Get_recycle;	//更新回收站显示
 	NotSave();
 }
 //删除图片
@@ -422,9 +418,7 @@ function delpic(picobj) {
 	}
 	$(picobj).attr("fenlei", "回收站");
 	$(picobj).hide();
-	refreshbubble();
-	RefreshFenleiProgress();
-	RefreshRenameProgress();
+	PicNum.getall;	//刷新气泡
 	NotSave();
 }
 
@@ -434,7 +428,7 @@ function delfolder(folderobj) {
 	$(folderobj).remove();
 	$("#picbox li").hide();
 	ResizeFoldersbox();
-	refreshbubble();
+	PicNum.getall;	//刷新气泡
 	NotSave();
 	
 }
@@ -461,10 +455,6 @@ function addfolder(name,action) {
 	} else {
 		tempfolder = a + name + d;
 		$("#addfolder").before(tempfolder);
-		//selfolder($("#foldersbox li:last"));
-		//MakeFolderEditable($("#foldersbox .text:last"));
-		//FolderDroptable();
-		//contactmenu();
 	}
 };
 //添加历史记录
@@ -692,8 +682,7 @@ function PreloadImg(src) {
 }
 
 //刷新重命名进度
-function RefreshRenameProgress() {
-	
+/*function RefreshRenameProgress() {
 	var a = GetAllPics();
 	var b = GetNoName();
 	console.info("信息："+b);
@@ -705,16 +694,29 @@ function RefreshRenameProgress() {
 		$('#prg_name').text(rename + "%");
 		}
 	$('#prg_name').css("width", rename + "%");
-}
+}*/
 
 //获取图片数量
 function GetPics(){
 	this.Get_total=function(){//图片总数
-		this.total=$("#picbox li:not('.ui-state-highlight')").size();
+		this.total=$("#picbox li:not('.ui-state-highlight')").size()-$("#picbox li[fenlei='回收站']").size();
+		$("#allfolder .bubble").text(this.total);	//更新全部图片气泡
+		}
+	this.Get_fenlei=function(){//已分类的图片数量
+		this.nofenlei=$("#picbox li[fenlei='未分类']").size();	//未分类的图片数量
+		$("#nofenlei .bubble").text(this.nofenlei);	//更新未分类气泡
+		console.info("信息this.nofenlei："+this.nofenlei);
 		}
 	this.Get_recycle=function(){//回收站总数
 		this.recycle=$("#picbox li[fenlei='回收站']").size();
-		}
+		$("#recycle .bubble").text(this.recycle);//更新回收站数字
+		//更新回收站显示样式
+			if(this.recycle!=="0"){
+				$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycled.png)");
+			} else {
+				$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycle.png)");
+				}
+			}
 	this.Get_named=function(){//已命名数量
 			var named = 0;
 			$("#picbox li").each(function(index, element) {
@@ -725,40 +727,47 @@ function GetPics(){
 				}
 			});
 			this.named=named;
+			this.noname=this.total-this.named;
+			$("#norename .bubble").text(this.noname);	//	顺便更新未命名气泡显示
 		}
-	this.noname=this.total-this.named;
 
 	this.getall=function(){
 		this.Get_total;
+		this.Get_fenlei
 		this.Get_recycle;
 		this.Get_named;
 		this.noname;
+		Prg.fenlei;
+		Prg.name;
+		}
+	}
+
+//刷新进度条显示
+function RedrawProgress(obj,progress){
+	if (progress == 100) {
+			obj.text("完成");
+		} else {
+			obj.text(progress + "%");
+			}
+		obj.css("width", progress + "%");
+	}
+
+
+//重新统计进度条
+function RefreshProgress(){
+	this.Fenlei=function(){		//分类进度
+		var fenleiprs=  Math.floor(N.fenlei * 100 /N.total);
+		RedrawProgress($("#prg_item"),fenleiprs);	
+		}
+	this.name=function(){
+		var nameprs=Math.floor(N.named * 100 /N.total);
+		RedrawProgress($("#prg_name"),nameprs);	
 		}
 	}
 
 
-//获取全部图片
-function GetAllPics(){
-	return $("#allfolder .bubble").text();
-	}
-//获取未分类图片
-function GetNoFenlei(){
-	return $("#nofenlei .bubble").text();
-	}
-//获取未命名图片
-function GetNoName(){
-	var named = 0;
-	$("#picbox li").each(function(index, element) {
-		var b = $(this).find("img").attr("alt");
-		var c = $(this).find(".text").text();
-		if (b !== c&&$(this).attr("fenlei")!=="回收站") {
-			named++;
-		}
-	});
-	return named;
-	}
 //刷新分类进度
-function RefreshFenleiProgress() {
+/*function RefreshFenleiProgress() {
 	var fenleied = 0;
 	var a = GetAllPics();
 	var b = GetNoFenlei();
@@ -769,9 +778,9 @@ function RefreshFenleiProgress() {
 		$('#prg_item').text(fenleied + "%");
 		}
 	$('#prg_item').css("width", fenleied + "%");
-}
+}*/
 //刷新规格进度
-function RefreshGuigeProgress() {
+/*function RefreshGuigeProgress() {
 	var guige = 0;
 	var a = $("#picbox li").size()-$("#picbox li[fenlei='回收站']").size();
 	var b = $("#picbox li:not([ext][ext!=''])").size()-$("#picbox li[fenlei='回收站']").size();
@@ -783,7 +792,7 @@ function RefreshGuigeProgress() {
 			$('#prg_guige').text(guige + "%");
 			}
 		$('#prg_guige').css("width", guige + "%");
-}
+}*/
 //设置文件夹或图片过滤的已选中指示。
 function ItemActive(item){
 	$("#picbox li.active").removeClass("active");
@@ -1575,22 +1584,23 @@ function fadeshow(obj){
 
 function ShowPanels(){
 	speed=300;
-	
+	PicNum=new GetPics();
+	//PicNum.getall;
+	Prg=new RefreshProgress();
 	$("#navbar").fadeIn(speed,function(){
    		$("#foldersbox").fadeIn(speed,function(){
    			$("#filter").fadeIn(speed,function(){
-				refreshbubble();
-				
+				//refreshbubble();
 				$("#prg_item_div").fadeIn(speed,function(){
 						$("#prg_name_div").fadeIn(speed,function(){
-							RefreshFenleiProgress();
+							PicNum.Get_fenlei;
 							$("#prg_guige_div").fadeIn(speed,function(){
-								RefreshRenameProgress();
+								PicNum.Get_named;
 								$("#recycle").fadeIn(speed,function(){
-									RefreshGuigeProgress();
+									
 									$("#exbtn").fadeIn(speed,function(){
 $("#picbox").fadeIn(speed,function(){
-
+	//PicNum.getall;
 });
 								});
 							});
