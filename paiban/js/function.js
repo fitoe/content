@@ -132,6 +132,8 @@ function getpic() {
 	}
 	$(document).queue('at3',myload2);
 	haveload2();
+	PicNum=new GetPics();
+	PicNum.getall;
 		}
 });
 }
@@ -704,6 +706,36 @@ function RefreshRenameProgress() {
 		}
 	$('#prg_name').css("width", rename + "%");
 }
+
+//获取图片数量
+function GetPics(){
+	this.Get_total=function(){//图片总数
+		this.total=$("#picbox li:not('.ui-state-highlight')").size();
+		}
+	this.Get_recycle=function(){//回收站总数
+		this.recycle=$("#picbox li[fenlei='回收站']").size();
+		}
+	this.Get_named=function(){//已命名数量
+			var named = 0;
+			$("#picbox li").each(function(index, element) {
+				var b = $(this).find("img").attr("alt");
+				var c = $(this).find(".text").text();
+				if (b !== c&&$(this).attr("fenlei")!=="回收站") {
+					named++;
+				}
+			});
+			this.named=named;
+		}
+	this.noname=this.total-this.named;
+
+	this.getall=function(){
+		this.Get_total;
+		this.Get_recycle;
+		this.Get_named;
+		this.noname;
+		}
+	}
+
 
 //获取全部图片
 function GetAllPics(){
