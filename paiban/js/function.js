@@ -143,7 +143,6 @@ function GetFields(){
 		}
 	ary=thefields.split(",");
 	brr="";
-	//console.log(ary.length);
 	for(i=0;i<ary.length;i++){
 		bry=ary[i].split("|");
 		Fields[i]=new Array();
@@ -270,9 +269,7 @@ function FolderDroptable(){
 			$("#picbox .active").attr("fenlei", $(this).find(".text").text());
 			ui.draggable.hide();
 			$("#picbox .active").hide();
-			refreshbubble();
-			RefreshFenleiProgress();
-			RefreshRenameProgress();
+			PicNum.getall();
 			NotSave();
 		}
 	});
@@ -321,7 +318,7 @@ function MakeFolderEditable(obj) {
 				return false;}
 				//if(Checkname()){
 				NotSave();
-				RefreshRenameProgress();
+				PicNum.getall();
 				//}
         	}
 			});
@@ -418,7 +415,7 @@ function delpic(picobj) {
 	}
 	$(picobj).attr("fenlei", "回收站");
 	$(picobj).hide();
-	PicNum.getall;	//刷新气泡
+	PicNum.getall();	//刷新气泡
 	NotSave();
 }
 
@@ -428,7 +425,7 @@ function delfolder(folderobj) {
 	$(folderobj).remove();
 	$("#picbox li").hide();
 	ResizeFoldersbox();
-	PicNum.getall;	//刷新气泡
+	PicNum.getall();	//刷新气泡
 	NotSave();
 	
 }
@@ -685,7 +682,6 @@ function PreloadImg(src) {
 /*function RefreshRenameProgress() {
 	var a = GetAllPics();
 	var b = GetNoName();
-	console.info("信息："+b);
 	var rename = Math.floor(b * 100 / a);
 	$("#norename .bubble").text(a - b);
 	if (rename == 100) {
@@ -700,12 +696,19 @@ function PreloadImg(src) {
 function GetPics(){
 	this.Get_total=function(){//图片总数
 		this.total=$("#picbox li:not('.ui-state-highlight')").size()-$("#picbox li[fenlei='回收站']").size();
+		if(this.total==0){this.total=1};
 		$("#allfolder .bubble").text(this.total);	//更新全部图片气泡
 		}
 	this.Get_fenlei=function(){//已分类的图片数量
+		this.Get_total();
 		this.nofenlei=$("#picbox li[fenlei='未分类']").size();	//未分类的图片数量
+		this.fenlei=this.total-this.nofenlei;
+		$("#foldersbox li").each(function(i) {	//文件夹图标统计
+			$(this).find(".bubble").text($("#picbox li[fenlei='" + $(this).find(".text").text() + "']").size());
+		});
 		$("#nofenlei .bubble").text(this.nofenlei);	//更新未分类气泡
-		console.info("信息this.nofenlei："+this.nofenlei);
+		var fenleiprs=  Math.floor(this.fenlei * 100 /this.total);	//进度条
+		RedrawProgress($("#prg_item"),fenleiprs);	
 		}
 	this.Get_recycle=function(){//回收站总数
 		this.recycle=$("#picbox li[fenlei='回收站']").size();
@@ -719,7 +722,7 @@ function GetPics(){
 			}
 	this.Get_named=function(){//已命名数量
 			var named = 0;
-			$("#picbox li").each(function(index, element) {
+			$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {
 				var b = $(this).find("img").attr("alt");
 				var c = $(this).find(".text").text();
 				if (b !== c&&$(this).attr("fenlei")!=="回收站") {
@@ -729,16 +732,18 @@ function GetPics(){
 			this.named=named;
 			this.noname=this.total-this.named;
 			$("#norename .bubble").text(this.noname);	//	顺便更新未命名气泡显示
+			var fenleiprs=  Math.floor(this.named * 100 /this.total);	//进度条
+			RedrawProgress($("#prg_name"),fenleiprs);	
 		}
 
 	this.getall=function(){
-		this.Get_total;
-		this.Get_fenlei
-		this.Get_recycle;
-		this.Get_named;
-		this.noname;
-		Prg.fenlei;
-		Prg.name;
+		//this.Get_total();
+		this.Get_fenlei();
+		this.Get_named();
+		this.Get_recycle();
+		//this.noname();
+		//Prg.fenlei();
+		//Prg.name;
 		}
 	}
 
@@ -1093,7 +1098,6 @@ $("#foldersbox").sortable({
 	
 	//图片文本框失去焦点
  // $("#picbox").on("blur", "input",function (event){
-	  	//console.info("信息："+$(event.currentTarget).val());
 		//$(event.currentTarget).parent(".text").text($(event.currentTarget).val());
 		//MakePicEditable($(event.currentTarget).parent(".text"));
 		//Checkname();
@@ -1152,7 +1156,7 @@ function() {
 	$("#picbox li .photo img[bigsrc='" + $("#dia_img").attr("src") + "']").next().text($(this).val());
 	$("#SlideTitle").text($(this).val());
 	NotSave();
-	RefreshRenameProgress();
+	PicNum.Get_named();
 });
 
 //未命名进度点击时
@@ -1251,7 +1255,7 @@ function() {
 	var obj = GetObjFromSrc($("#dia_img").attr("src"));
 	$(obj).attr("fenlei", $(this).text());
 	NotSave();
-	refreshbubble();
+	PicNum.Get_fenlei();
 	var selfenlei = $("#foldersbox .active").find(".text").text();
 	if (typeof(selfenlei) == "undefined") {
 		if ($(obj).attr("fenlei") == "未分类") {
@@ -1480,9 +1484,7 @@ function() {
 				ui.draggable.hide();	
 			}
 			NotSave();
-			refreshbubble();
-			RefreshFenleiProgress();
-			RefreshRenameProgress();
+			PicNum.getall();
 		}
 	});
 //全选功能
@@ -1590,14 +1592,14 @@ function ShowPanels(){
 	$("#navbar").fadeIn(speed,function(){
    		$("#foldersbox").fadeIn(speed,function(){
    			$("#filter").fadeIn(speed,function(){
-				//refreshbubble();
+				PicNum.Get_fenlei();
 				$("#prg_item_div").fadeIn(speed,function(){
 						$("#prg_name_div").fadeIn(speed,function(){
-							PicNum.Get_fenlei;
+							PicNum.Get_named();
 							$("#prg_guige_div").fadeIn(speed,function(){
-								PicNum.Get_named;
+								
 								$("#recycle").fadeIn(speed,function(){
-									
+									PicNum.Get_recycle();
 									$("#exbtn").fadeIn(speed,function(){
 $("#picbox").fadeIn(speed,function(){
 	//PicNum.getall;
