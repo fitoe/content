@@ -493,41 +493,6 @@ function Dialoger(obj) {
 	MakeNextShow(obj);
 	var s = new GetSlide(obj);
 	$("#SlideTitle").text(s.title);
-	
-/*	d = dialog({
-		id: 'mydialog',
-		title: s.title,
-		width: 950,
-		padding: 0,
-		quickClose: false,
-		content: $("#dialog"),
-		statusbar:"<button id='SlideDel'><i class='fa fa-trash-o fa-lg'></i> 删除</button>",
-		button: [{
-			value: "<i class='fa fa-arrow-circle-o-left fa-lg'></i> 上一张",
-			callback: function() {
-				MakeNextShow(s.pre());
-				d.title($(s.obj()).find(".text").text());
-				d.reset();
-				return false;
-			},
-			autofocus: false
-		},
-		{
-			value: "下一张 <i class='fa fa-arrow-circle-o-right fa-lg'></i>",
-			callback: function() {
-				MakeNextShow(s.next());
-				d.title($(s.obj()).find(".text").text());
-				d.reset();
-				
-				return false;
-			},
-			autofocus: false
-		}
-		
-		]
-	});
-	d.reset();
-	d.showModal();*/
 }
 
 //制作下一张幻灯
@@ -575,7 +540,6 @@ function MakeNextShow(obj) {
 		}
 	});
 
-	//$("#dia_title").focus();  //设置标题焦点
 	//提前载入下一张幻灯
 	var nextimg = new Image();
 	nextimg.src=$(t.next()).find("img").attr("bigsrc");
@@ -699,6 +663,7 @@ function GetPics(){
 		if(this.total==0){this.total=1};
 		$("#allfolder .bubble").text(this.total);	//更新全部图片气泡
 		}
+
 	this.Get_fenlei=function(){//已分类的图片数量
 		this.Get_total();
 		this.nofenlei=$("#picbox li[fenlei='未分类']").size();	//未分类的图片数量
@@ -708,8 +673,10 @@ function GetPics(){
 		});
 		$("#nofenlei .bubble").text(this.nofenlei);	//更新未分类气泡
 		var fenleiprs=  Math.floor(this.fenlei * 100 /this.total);	//进度条
-		RedrawProgress($("#prg_item"),fenleiprs);	
+		RedrawProgress($("#prg_item"),fenleiprs);
+		if(ifSlideShown()){RedrawProgress($("#prg_now"),fenleiprs)};
 		}
+
 	this.Get_recycle=function(){//回收站总数
 		this.recycle=$("#picbox li[fenlei='回收站']").size();
 		$("#recycle .bubble").text(this.recycle);//更新回收站数字
@@ -732,8 +699,9 @@ function GetPics(){
 			this.named=named;
 			this.noname=this.total-this.named;
 			$("#norename .bubble").text(this.noname);	//	顺便更新未命名气泡显示
-			var fenleiprs=  Math.floor(this.named * 100 /this.total);	//进度条
-			RedrawProgress($("#prg_name"),fenleiprs);	
+			var nameprs=  Math.floor(this.named * 100 /this.total);	//进度条
+			RedrawProgress($("#prg_name"),nameprs);
+			if(ifSlideShown()){RedrawProgress($("#prg_now"),nameprs)};
 		}
 
 	this.getall=function(){
@@ -834,25 +802,8 @@ function selpic(obj) {
 		$(obj).addClass("active");
 	}
 }
-//刷新统计气泡
-function refreshbubble() {
-	$("#foldersbox li").each(function(i) {
-		$(this).find(".bubble").text($("#picbox li[fenlei='" + $(this).find(".text").text() + "']").size());
-	});
-	$("#allfolder .bubble").text($("#picbox li:not('.ui-state-highlight')").size()-$("#picbox li[fenlei='回收站']").size());
-	$("#nofenlei .bubble").text($("#picbox li[fenlei='未分类']").size());
-	$("#recycle .bubble").text($("#picbox li[fenlei='回收站']").size());
-	//回收站满了的样式
-	if($('#recycle .bubble').text()!=="0"){
-		$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycled.png)");
-		} else {
-		$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycle.png)");
-			}
-}
-//刷新备注气泡
-function RefreshMemoBuble() {
-	$("#allnotes .bubble").text($("#memos li").size());
-}
+
+
 //从幻灯图片路径获取对应图片对象
 function GetObjFromSrc(src) {
 	var obj = $("#picbox .photo img[bigsrc='" + src + "']").parentsUntil("li").parent();
@@ -1180,12 +1131,12 @@ function() {
 
 
 //规格完成进度点击时
-$("#prg_guige_div").on('click',
+/*$("#prg_guige_div").on('click',
 function() {
 	$("#foldersbox .active").removeClass("active");
 	$("#picbox li").hide();
 	$("#picbox li:not([ext][ext!=''])").show();
-});
+});*/
 
 //历史记录面板点恢复按钮的时候
 $("body").on('click',"#ModalHistory .RestoreBtn",
@@ -1596,7 +1547,7 @@ function ShowPanels(){
 				$("#prg_item_div").fadeIn(speed,function(){
 						$("#prg_name_div").fadeIn(speed,function(){
 							PicNum.Get_named();
-							$("#prg_guige_div").fadeIn(speed,function(){
+							//$("#prg_guige_div").fadeIn(speed,function(){
 								
 								$("#recycle").fadeIn(speed,function(){
 									PicNum.Get_recycle();
@@ -1606,7 +1557,7 @@ $("#picbox").fadeIn(speed,function(){
 });
 								});
 							});
-						});
+					
 					});
 				});
 	 		});

@@ -92,18 +92,15 @@ var thefields='{$canshu}';
             <div id="prg_name" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">0% <span class="sr-only">0% Complete (success)</span> </div>
           </div>
         </li>
-        <li id="prg_guige_div" class="list-group-item list-group-item-warning vis_hidn">规格进度
+<!--        <li id="prg_guige_div" class="list-group-item list-group-item-warning vis_hidn">规格进度
           <div class="progress">
             <div id="prg_guige" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">0% <span class="sr-only">0% Complete (success)</span> </div>
           </div>
-        </li>
+        </li>-->
       </ul>
       <div id="recycle" class="panel panel-default text-center vis_hidn">
           <p class="text">回收站 <span class="badge bubble"> </span></p>
       </div>
-      <div id="myStat" data-dimension="170" data-info="改名进度" data-text="0%" data-width="20" data-fontsize="25" data-percent="0" data-fgcolor="#61a9dc" data-bgcolor="#eee" title="点击查看未改名的照片"></div>
-      <div id="myStat2" data-dimension="170" data-info="分类进度" data-text="0%" data-width="20" data-fontsize="25" data-percent="0" data-fgcolor="#61a9dc" data-bgcolor="#eee" title="点击查看未分类的照片"></div>
-      <div id="myStat3" data-dimension="170" data-info="规格进度" data-text="0%" data-width="20" data-fontsize="25" data-percent="0" data-fgcolor="#61a9dc" data-bgcolor="#eee" title="点击查看未填写规格的照片"></div>
    <div class="btn-toolbar center-block" role="toolbar" aria-label="...">
       <div id="exbtn" class="btn-group vis_hidn" role="group" aria-label="...">
           <button type="button" class="btn btn-default" title="历史记录" data-toggle="modal" data-target="#ModalHistory"><i class="fa fa-history"></i></button>
@@ -123,11 +120,12 @@ var thefields='{$canshu}';
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="SlideTitle">Modal title</h4>
+        <h4 class="modal-title" id="SlideTitle"></h4>
+        
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-8 col-sm-8 text-center"><img id="dia_img" /></div>
+          <div class="col-md-8 col-sm-8 text-center"><img id="dia_img" class="img-thumbnail" /></div>
           <div class="col-md-4 col-sm-4">
             <form class="form-horizontal">
               <div class="form-group">
@@ -160,6 +158,9 @@ var thefields='{$canshu}';
         <button id="SlidePrev" type="button" class="btn btn-default">上一张</button>
         <button id="SlideNext" type="button" class="btn btn-primary">下一张</button>
       </div>
+      <div class="progress">
+            <div id="prg_now" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">0% <span class="sr-only">0% Complete (success)</span> </div>
+          </div>
     </div>
   </div>
 </div>
