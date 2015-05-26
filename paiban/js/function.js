@@ -660,7 +660,6 @@ function PreloadImg(src) {
 function GetPics(){
 	this.Get_total=function(){//图片总数
 		this.total=$("#picbox li:not('.ui-state-highlight')").size()-$("#picbox li[fenlei='回收站']").size();
-		if(this.total==0){this.total=1};
 		$("#allfolder .bubble").text(this.total);	//更新全部图片气泡
 		}
 
@@ -1254,6 +1253,8 @@ function() {
 	SlideDel();
 });
 
+
+
 //新建文件夹对话框弹出之前
 $('#ModalCreatFolder').on('show.bs.modal', function (e) {
 	if($("#foldersbox .active").size()>0){
@@ -1707,3 +1708,37 @@ function CreatPage(n){
 	$("#desk .page").height(PageH);
 	$("#desk .page").width(PageW);
 	}
+	
+//自动编号
+function autonum(String)
+        {
+			started=0;
+			numend=String.length;
+            var Letters = "1234567890";
+            var i;
+            var c;
+            for( i = 0; i < String.length; i ++ )
+            {
+                c = String.charAt( i );
+				
+                if (Letters.indexOf( c ) !==-1&&!started)
+                {
+                    numfrom=i;
+					started=1;
+                }
+
+				if (Letters.indexOf( c ) ==-1&&started)
+                {
+                    numend=i;
+					started=0;
+					return {
+				begin:numfrom,
+				end:numend,
+				strlen:String.length,
+				numlen:numend-numfrom
+			};
+                }
+            }
+			return false;
+
+        }
