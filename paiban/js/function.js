@@ -93,7 +93,6 @@ function savepic() {
 }
 
 //获取产品图片
-
 function getpic() {
 	GetFields();
 	$.ajax({
@@ -135,6 +134,16 @@ function getpic() {
 		}
 });
 }
+
+//获取文件夹列表
+function GetFolderlist(){
+	var arr=new　Array();
+	$("#foldersbox li").each(function(i) {	//文件夹图标统计
+		arr.push($(this).find(".text").text());
+		});
+	return arr;
+	}
+
 
 //获取其它字段
 function GetFields(){
@@ -1075,6 +1084,35 @@ $('#ModalHistory').on('show.bs.modal', function (e) {
 });
 
 
+//自动编号对话框，修改字符样式的时候
+$("body").on('keyup','#autonum_style',
+	function(e) {
+		var cstyle=$(this).val();
+		var x=autonum(cstyle);	//取编号样式
+		var char=str_repeat ("#", x.numlen);	//取#号
+		//var fil=$("#autonum_filter").val().split(",");
+		
+		//var newstr=cstyle.replace(char,FormatNum("1",x.numlen)); 	//把生成的数字替换到模版里
+		//生成预览
+		$("#autonum_view").empty();
+		
+		for(t=1;t<=6;t++){
+			//if(!$.inArray(t.toString(),fil)){continue;}
+			if(NumFiltter(t)){continue;}
+			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(t,x.numlen))+"</li>");
+			}
+		$("#autonum_view").append("……");	//省略号行
+		for(u=PicNum.total-3;u<=PicNum.total;u++){	//输出后两行
+			//$("#autonum_view").append("555");
+			//if(!$.inArray(t.toString(),fil)){continue;}
+			if(NumFiltter(u)){continue;}
+			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(u,x.numlen))+"</li>");
+			}
+});
+
+
+
+
 //新建文件夹输入框内回车的时候确定
 $("body").on('keypress','#NewFolderName',
 	function(e) {
@@ -1518,7 +1556,8 @@ function after(){
 	RecycleDroptable(),
 	checkmissed(),
 	ShowPanels(),	//呈现面板
-	Loaded=true
+	Loaded=true,
+Autonum_folderlist()
 	//$("#guide").trigger("click")
 	];
 	
@@ -1714,7 +1753,7 @@ function autonum(String)
         {
 			started=0;
 			numend=String.length;
-            var Letters = "1234567890";
+            var Letters = "#";
             var i;
             var c;
             for( i = 0; i < String.length; i ++ )
@@ -1726,19 +1765,62 @@ function autonum(String)
                     numfrom=i;
 					started=1;
                 }
-
 				if (Letters.indexOf( c ) ==-1&&started)
                 {
                     numend=i;
 					started=0;
 					return {
-				begin:numfrom,
-				end:numend,
-				strlen:String.length,
-				numlen:numend-numfrom
-			};
+						begin:numfrom,
+						end:numend,
+						strlen:String.length,
+						numlen:numend-numfrom
+					};
                 }
             }
-			return false;
-
+			return {
+						begin:numfrom,
+						end:numend,
+						strlen:String.length,
+						numlen:numend-numfrom
+					};
         }
+
+function Autonum_folderlist(){
+	GetFolderlist().map( function(item) {
+		$("#Autonum_folderlist").append("<div class='checkbox'><label><input type='checkbox' checked value='"+item+"'>"+item+"</label></div>");
+	});
+
+	}
+	
+
+/**格式化数字为一个定长的字符串，前面补０ 
+*参数: 
+* Source 待格式化的字符串 
+* Length 需要得到的字符串的长度 
+*/ 
+function FormatNum(Source,Length){ 
+var strTemp=""; 
+for(i=1;i<=Length-Source.toString().length;i++){ 
+strTemp+="0"; 
+} 
+return strTemp+Source; 
+} 
+
+function str_repeat (input, multiplier) {
+    return new Array(multiplier + 1).join(input);
+}
+
+//检测字符串是否在过滤字符中
+function NumFiltter(chr){
+var fil=$("#autonum_filter").val().split(",");
+
+for( fi = 0; fi <= fil.length; i ++ )
+	{
+console.log(fil[fi]);
+		if (fil[fi].indexOf(chr.toString())){
+			return false;
+			} else {
+			return true;
+			}
+		}
+}
