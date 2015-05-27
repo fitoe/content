@@ -1083,11 +1083,18 @@ $('#ModalHistory').on('show.bs.modal', function (e) {
 	 gethistory(1);
 });
 
+//自动编号对话框打开的时候
+$('#ModalAutoNum').on('show.bs.modal', function (e) {
+	 $("#autonum_style").trigger("keyup");
+});
 
 //自动编号对话框，修改字符样式的时候
 $("body").on('keyup','#autonum_style',
 	function(e) {
 		var cstyle=$(this).val();
+		var fil=$("#autonum_filter").val()
+		var step=Number($("#autonum_step").val());
+		var start=Number($("#autonum_start").val());
 		var x=autonum(cstyle);	//取编号样式
 		var char=str_repeat ("#", x.numlen);	//取#号
 		//var fil=$("#autonum_filter").val().split(",");
@@ -1095,23 +1102,24 @@ $("body").on('keyup','#autonum_style',
 		//var newstr=cstyle.replace(char,FormatNum("1",x.numlen)); 	//把生成的数字替换到模版里
 		//生成预览
 		$("#autonum_view").empty();
-		
-		for(t=1;t<=6;t++){
+		for(t=start;t<=6;t+=step){
 			//if(!$.inArray(t.toString(),fil)){continue;}
-			if(NumFiltter(t)){continue;}
+			if(!NumFiltter(t)&&fil!==""){continue;}
 			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(t,x.numlen))+"</li>");
 			}
 		$("#autonum_view").append("……");	//省略号行
 		for(u=PicNum.total-3;u<=PicNum.total;u++){	//输出后两行
 			//$("#autonum_view").append("555");
 			//if(!$.inArray(t.toString(),fil)){continue;}
-			if(NumFiltter(u)){continue;}
+			if(!NumFiltter(u)&&fil!==""){continue;}
 			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(u,x.numlen))+"</li>");
 			}
 });
 
-
-
+$("body").on('change','#autonum_panel input:not("#autonum_style")',
+	function(e) {
+		$("#autonum_style").trigger("keyup");
+	});
 
 //新建文件夹输入框内回车的时候确定
 $("body").on('keypress','#NewFolderName',
@@ -1812,15 +1820,17 @@ function str_repeat (input, multiplier) {
 
 //检测字符串是否在过滤字符中
 function NumFiltter(chr){
+console.log(chr);
+if(chr==""){ return false;}
 var fil=$("#autonum_filter").val().split(",");
-
-for( fi = 0; fi <= fil.length; i ++ )
+for( z = 0; z < fil.length; z++ )
 	{
-console.log(fil[fi]);
-		if (fil[fi].indexOf(chr.toString())){
-			return false;
+		if (chr.toString().indexOf(fil[z].toString())==-1){
+			continue;
 			} else {
-			return true;
+			return false;
 			}
+		
 		}
+return true;
 }
