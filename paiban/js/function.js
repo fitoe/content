@@ -1085,6 +1085,9 @@ $('#ModalHistory').on('show.bs.modal', function (e) {
 
 //自动编号对话框打开的时候
 $('#ModalAutoNum').on('show.bs.modal', function (e) {
+	GetFields();
+	Autonum_folderlist();
+	Autonum_fillform();
 	 $("#autonum_style").trigger("keyup");
 });
 
@@ -1564,8 +1567,7 @@ function after(){
 	RecycleDroptable(),
 	checkmissed(),
 	ShowPanels(),	//呈现面板
-	Loaded=true,
-Autonum_folderlist()
+	Loaded=true
 	//$("#guide").trigger("click")
 	];
 	
@@ -1797,7 +1799,6 @@ function Autonum_folderlist(){
 	GetFolderlist().map( function(item) {
 		$("#Autonum_folderlist").append("<div class='checkbox'><label><input type='checkbox' checked value='"+item+"'>"+item+"</label></div>");
 	});
-
 	}
 	
 
@@ -1820,7 +1821,6 @@ function str_repeat (input, multiplier) {
 
 //检测字符串是否在过滤字符中
 function NumFiltter(chr){
-console.log(chr);
 if(chr==""){ return false;}
 var fil=$("#autonum_filter").val().split(",");
 for( z = 0; z < fil.length; z++ )
@@ -1834,3 +1834,46 @@ for( z = 0; z < fil.length; z++ )
 		}
 return true;
 }
+
+//填充自动编号的字段选择栏
+function Autonum_fillform(){
+	if(Fields.length){
+		for(i=0;i<Fields.length;i++){
+			$("#autonum_form").append("<option value='"+Fields[i][1]+"'>"+Fields[i][0]+"</option>");
+		}
+	}
+	$("#autonum_form").append("<option value='title'>名称</option>");
+	FillNum();
+}
+
+//添加编号功能
+function FillNum(){
+	var foldnum=[];
+	var start=0;
+	$("#foldersbox li").each(function(i) {	//文件夹图标统计
+	var te=$(this).find(".text").text();
+	var bu=Number($(this).find(".bubble").text());
+	var temp=[];
+		temp.name=te;
+		temp.num=bu;
+		start+=bu;
+		temp.start=start;
+		temp.now=0;
+		foldnum.push(temp);
+	});
+	console.log(foldnum);
+	//console.log(foldnum);
+	
+/*	$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {
+		var fold = $(this).attr("fenlei");
+		if(ff.length){
+			for(i=0;i<ff.length;i++){
+				$("#autonum_form").append("<option value='"+Fields[i][1]+"'>"+Fields[i][0]+"</option>");
+			}
+		}
+	});*/
+	
+	
+	
+	
+	}
