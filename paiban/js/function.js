@@ -95,6 +95,7 @@ function savepic() {
 //获取产品图片
 function getpic() {
 	GetFields();
+	FillSlideFields();
 	$.ajax({
 		url: "/phpcms/templates/default/content/paiban/paiban.php",
 		type: "POST",
@@ -160,7 +161,7 @@ function GetFields(){
 		//$("#fieldname").after("<div class='form-group'><label for='"+"dia_"+bry[1]+"' class='col-sm-3 control-label'>"+bry[0]+":</label><div class='col-sm-9'><input type='text' class='form-control' id='"+"dia_"+bry[1]+"' ></div></div>");
 		
 		}
-		FillSlideFields();
+		
 	}
 //生成幻灯大图里的字段
 function FillSlideFields(){
@@ -1091,6 +1092,8 @@ $('#ModalAutoNum').on('show.bs.modal', function (e) {
 	 $("#autonum_style").trigger("keyup");
 });
 
+
+
 //自动编号对话框，修改字符样式的时候
 $("body").on('keyup','#autonum_style',
 	function(e) {
@@ -1100,20 +1103,14 @@ $("body").on('keyup','#autonum_style',
 		var start=Number($("#autonum_start").val());
 		var x=autonum(cstyle);	//取编号样式
 		var char=str_repeat ("#", x.numlen);	//取#号
-		//var fil=$("#autonum_filter").val().split(",");
-		
-		//var newstr=cstyle.replace(char,FormatNum("1",x.numlen)); 	//把生成的数字替换到模版里
 		//生成预览
 		$("#autonum_view").empty();
 		for(t=start;t<=6;t+=step){
-			//if(!$.inArray(t.toString(),fil)){continue;}
 			if(!NumFiltter(t)&&fil!==""){continue;}
 			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(t,x.numlen))+"</li>");
 			}
 		$("#autonum_view").append("……");	//省略号行
 		for(u=PicNum.total-3;u<=PicNum.total;u++){	//输出后两行
-			//$("#autonum_view").append("555");
-			//if(!$.inArray(t.toString(),fil)){continue;}
 			if(!NumFiltter(u)&&fil!==""){continue;}
 			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(u,x.numlen))+"</li>");
 			}
@@ -1329,6 +1326,13 @@ function() { //检查文件夹是否存在
 	gethistory(1);
 });
 
+//自动编号对话框，确定按钮
+$("body").on('click',"#AutoNumok",
+function() {
+	FillNum();
+	$('#ModalAutoNum').modal('hide');
+});
+
 
 //点击新建文件夹对话框的确定按钮
 $("body").on('click',"#folderok",
@@ -1377,6 +1381,10 @@ function() {
 	$("#foldersbox .active").removeClass("active");
 	$("#ModalCreatFolder").modal('show');
 });
+
+
+
+
 //点击回收站按钮
 $("#recycle").on("click",
 function() {
@@ -1796,6 +1804,7 @@ function autonum(String)
         }
 
 function Autonum_folderlist(){
+	$("#Autonum_folderlist").empty();
 	GetFolderlist().map( function(item) {
 		$("#Autonum_folderlist").append("<div class='checkbox'><label><input type='checkbox' checked value='"+item+"'>"+item+"</label></div>");
 	});
@@ -1837,32 +1846,62 @@ return true;
 
 //填充自动编号的字段选择栏
 function Autonum_fillform(){
+	$("#autonum_form").empty();
 	if(Fields.length){
 		for(i=0;i<Fields.length;i++){
 			$("#autonum_form").append("<option value='"+Fields[i][1]+"'>"+Fields[i][0]+"</option>");
 		}
 	}
 	$("#autonum_form").append("<option value='title'>名称</option>");
-	FillNum();
 }
 
 //添加编号功能
 function FillNum(){
-	var foldnum=[];
-	var start=0;
-	$("#foldersbox li").each(function(i) {	//文件夹图标统计
-	var te=$(this).find(".text").text();
-	var bu=Number($(this).find(".bubble").text());
-	var temp=[];
+	var filfiled=$("#autonum_form").val();	//要填写的字段
+	var cstyle=$("#autonum_style").val();		//编号样式
+	var x=autonum(cstyle);	//取编号样式
+	var char=str_repeat ("#", x.numlen);	//取#号
+	var foldnum=[];		//文件夹属性数组
+	var start=Number($("#autonum_start").val());		//编号开始的数字
+	var ff=GetFolderlist();		//获取文件夹列表
+	var fil=$("#autonum_filter").val();		//过滤数字
+	$("#foldersbox li").each(function(i) {	//循环文件夹，把文件夹详情赋值给数组
+		var te=$(this).find(".text").text();
+		var bu=Number($(this).find(".bubble").text());
+		if(!$("#Autonum_folderlist input[value='"+te+"']").is(':checked')){
+			return true;
+		}
+		var temp={};
 		temp.name=te;
 		temp.num=bu;
-		start+=bu;
 		temp.start=start;
+		for(a=start;a<start+temp.num;a++){
+			if(!NumFiltter(a)){temp.num++;}
+		}
+		start+=temp.num;
 		temp.now=0;
 		foldnum.push(temp);
 	});
-	console.log(foldnum);
-	//console.log(foldnum);
+	
+	$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {		//循环每个图片对象
+		var fold = $(this).attr("fenlei");	//获取当前图片的分类名字
+		
+		if(ff.length){
+			//for(i=0;i<ff.length;i++){		//循环尝试每个文件夹名字
+				for(r=0;r<foldnum.length;r++){
+					if(!$("#Autonum_folderlist input[value='"+fold+"']").is(':checked')){continue;}
+					var thenum=foldnum[r].start+foldnum[r].now;
+					if(fold==foldnum[r].name){
+						if(!NumFiltter(thenum)&&fil!==""){foldnum[r].now+=1;}	//如果这个数要跳过则加1
+						console.log(thenum);
+						$(this).attr(""+filfiled+"",cstyle.replace(char,FormatNum(thenum,x.numlen)));
+						}
+					foldnum[r].now+=1;
+				}
+			//}
+		}
+	});
+	
 	
 /*	$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {
 		var fold = $(this).attr("fenlei");
