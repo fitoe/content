@@ -1,7 +1,7 @@
 //
 //进度条加载
 Pace.on("done", function (){
-	after();
+	after(); 
 	});
 newFolder = "";
 newLI = "";
@@ -171,6 +171,7 @@ function FillSlideFields(){
 	}
 	}
 }
+
 
 
 //增加图片
@@ -1119,6 +1120,10 @@ $("body").on('keyup','#autonum_style',
 $("body").on('change','#autonum_panel input:not("#autonum_style")',
 	function(e) {
 		$("#autonum_style").trigger("keyup");
+		var pattern = /^[0-9\,]+$/;
+		if($(this).attr("id")=="autonum_filter" && !pattern.test($(this).val())){
+alert("这里只能是数字和英文逗号");
+}
 	});
 
 //新建文件夹输入框内回车的时候确定
