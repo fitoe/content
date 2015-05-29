@@ -58,8 +58,20 @@ var thefields='{$canshu}';
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">导航切换</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       <a class="navbar-brand2" href="/"> <img alt="Brand" src="{IMG_PATH}logo.svg" width="120px" class="img-responsive" alt="飞图广告标志"> </a> </div>
+    <div class="nav navbar-nav  navbar-form">
+     <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">功能 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#"  data-toggle="modal" data-target="#ModalAutoNum"><i class="fa fa-download"></i> 自动编号</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#ModalHistory"><i class="fa fa-history"></i> 历史记录</a></li>
+          </ul>
+        </li>
+      </ul>
+      
+    </div>
     <div class="nav navbar-nav navbar-right navbar-form">
-      <div class="input-group">
+    <div class="input-group pull-right">
         <div class="input-group-addon"><i class="fa fa-search fa-flip-horizontal"></i></div>
         <input id="Search" type="text" class="form-control" placeholder="搜索">
       </div>
@@ -103,8 +115,6 @@ var thefields='{$canshu}';
       </div>
       <div class="btn-toolbar center-block" role="toolbar" aria-label="...">
         <div id="exbtn" class="btn-group vis_hidn" role="group" aria-label="...">
-          <button type="button" class="btn btn-default" title="历史记录" data-toggle="modal" data-target="#ModalHistory"><i class="fa fa-history"></i></button>
-          <button type="button" class="btn btn-default" title="自动编号" data-toggle="modal" data-target="#ModalAutoNum"><i class="fa fa-download"></i></button>
           <button id="SaveBtn" type="button" class="btn btn-default" title="保存"><i class='fa fa-check'> 就绪</i></button>
         </div>
       </div>

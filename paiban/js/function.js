@@ -1105,7 +1105,7 @@ $("body").on('keyup','#autonum_style',
 		var char=str_repeat ("#", x.numlen);	//取#号
 		//生成预览
 		$("#autonum_view").empty();
-		for(t=start;t<=6;t+=step){
+		for(t=start;t<=start+6;t+=step){
 			if(!NumFiltter(t)&&fil!==""){continue;}
 			$("#autonum_view").append("<li>"+cstyle.replace(char,FormatNum(t,x.numlen))+"</li>");
 			}
@@ -1861,58 +1861,24 @@ function FillNum(){
 	var cstyle=$("#autonum_style").val();		//编号样式
 	var x=autonum(cstyle);	//取编号样式
 	var char=str_repeat ("#", x.numlen);	//取#号
-	var foldnum=[];		//文件夹属性数组
 	var start=Number($("#autonum_start").val());		//编号开始的数字
-	var ff=GetFolderlist();		//获取文件夹列表
 	var fil=$("#autonum_filter").val();		//过滤数字
-	$("#foldersbox li").each(function(i) {	//循环文件夹，把文件夹详情赋值给数组
-		var te=$(this).find(".text").text();
-		var bu=Number($(this).find(".bubble").text());
-		if(!$("#Autonum_folderlist input[value='"+te+"']").is(':checked')){
-			return true;
-		}
-		var temp={};
-		temp.name=te;
-		temp.num=bu;
-		temp.start=start;
-		for(a=start;a<start+temp.num;a++){
-			if(!NumFiltter(a)){temp.num++;}
-		}
-		start+=temp.num;
-		temp.now=0;
-		foldnum.push(temp);
-	});
-	
-	$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {		//循环每个图片对象
-		var fold = $(this).attr("fenlei");	//获取当前图片的分类名字
-		
-		if(ff.length){
-			//for(i=0;i<ff.length;i++){		//循环尝试每个文件夹名字
-				for(r=0;r<foldnum.length;r++){
-					if(!$("#Autonum_folderlist input[value='"+fold+"']").is(':checked')){continue;}
-					var thenum=foldnum[r].start+foldnum[r].now;
-					if(fold==foldnum[r].name){
-						if(!NumFiltter(thenum)&&fil!==""){foldnum[r].now+=1;}	//如果这个数要跳过则加1
-						console.log(thenum);
-						$(this).attr(""+filfiled+"",cstyle.replace(char,FormatNum(thenum,x.numlen)));
-						}
-					foldnum[r].now+=1;
+	$("#foldersbox li").each(function(i) {	//文件夹图标统计
+		var sss = $(this).find(".text").text();
+		var sss2 = $("#picbox li[fenlei='" + sss + "']");
+		sss2.each(function(index, element) {		//循环每个图片对象
+			if(!$("#Autonum_folderlist input[value='"+sss+"']").is(':checked')){return true;}
+			while (!NumFiltter(start)||fil=="")	//加1是否符合规定，否则一直加1
+				{
+					start++;
 				}
-			//}
-		}
+			if(filfiled=="title"){
+					$(element).find(".text").text(cstyle.replace(char,FormatNum(start,x.numlen)));
+				} else {
+					$(element).attr(filfiled,cstyle.replace(char,FormatNum(start,x.numlen)));
+				}
+			start++;
+		});
 	});
-	
-	
-/*	$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {
-		var fold = $(this).attr("fenlei");
-		if(ff.length){
-			for(i=0;i<ff.length;i++){
-				$("#autonum_form").append("<option value='"+Fields[i][1]+"'>"+Fields[i][0]+"</option>");
-			}
-		}
-	});*/
-	
-	
-	
-	
-	}
+	NotSave();
+}
