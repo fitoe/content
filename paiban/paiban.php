@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_DEPRECATED);
 mysql_query("set character set 'utf8'");//读库 
 mysql_query("set names 'utf8'");//写库 
-include($_SERVER['DOCUMENT_ROOT']."phpcms/libs/functions/global.func.php");
+//include($_SERVER['DOCUMENT_ROOT']."/phpcms/libs/functions/global.func.php");
 @$action=$_POST['action'];
 @$catid=$_POST['catid'];
 @$id=$_POST['id'];
@@ -127,4 +127,37 @@ switch ($action){
 	
 	}
 $con.mysql_close();
+/**
+* 将字符串转换为数组
+*
+* @param	string	$data	字符串
+* @return	array	返回数组格式，如果，data为空，则返回空数组
+*/
+function string2array($data) {
+	if($data == '') return array();
+	@eval("\$array = $data;");
+	return $array;
+}
+/**
+* 将数组转换为字符串
+*
+* @param	array	$data		数组
+* @param	bool	$isformdata	如果为0，则不使用new_stripslashes处理，可选参数，默认为1
+* @return	string	返回字符串，如果，data为空，则返回空
+*/
+function array2string($data, $isformdata = 1) {
+	if($data == '') return '';
+	if($isformdata) $data = new_stripslashes($data);
+	return addslashes(var_export($data, TRUE));
+}
+/**
+ * 返回经stripslashes处理过的字符串或数组
+ * @param $string 需要处理的字符串或数组
+ * @return mixed
+ */
+function new_stripslashes($string) {
+	if(!is_array($string)) return stripslashes($string);
+	foreach($string as $key => $val) $string[$key] = new_stripslashes($val);
+	return $string;
+}
 ?>

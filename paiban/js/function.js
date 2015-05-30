@@ -831,6 +831,7 @@ function ResizeFoldersbox() {
 			preventDefault: true
 		},
 		scrollAmount: 1,
+		autoHideScrollbar: false,
 		advanced: {
 			autoExpandHorizontalScroll: true,
 			updateOnBrowserResize: true,
