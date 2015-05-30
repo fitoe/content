@@ -66,11 +66,19 @@ function savepic() {
 		jdata.push(row);
 	});
 	
+//进度数组
+	var pdata=[];
+	var prow = {};
+	prow.name=Math.floor(PicNum.named * 100 /PicNum.total);
+	prow.Fenlei=  Math.floor(PicNum.fenlei * 100 /PicNum.total);
+	pdata.push(prow);
+
 	var alldata = [];
 	var allrow = {};
 	allrow.folder=fdata;
 	allrow.pics=jdata;
-	alldata={"folder":fdata,"pics":jdata};
+	allrow.progress=pdata;
+	alldata={"folder":fdata,"pics":jdata,"progress":pdata};
 	
 	$.ajax({
 		url: "/phpcms/templates/default/content/paiban/paiban.php",
@@ -127,11 +135,8 @@ function getpic() {
 		newLI = ""
 	];
 	
-	var haveload2=function (){
-		$(document).dequeue('at3');
-	}
 	$(document).queue('at3',myload2);
-	haveload2();
+	$(document).dequeue('at3');
 		}
 });
 }
@@ -379,11 +384,9 @@ function RestoreHistory(hisid){
 		NotSave(),
 		$("#historyhelpBlock").text("历史记录恢复成功")
 	];
-	var haveload=function (){
-		$(document).dequeue('at');
-	}
+
 	$(document).queue('at',myload);
-	haveload();
+	$(document).dequeue('at');
 		}
 });
 	}
@@ -1547,7 +1550,7 @@ key('pageup',
 function() {
 	SlidePrev();
 });
-
+//起点
 getpic();
 
 });
@@ -1569,7 +1572,7 @@ function loadimage(){
 
 function after(){
 	
-	var myload=[
+	var myload3=[
 	Init(),
 	//后续任务
 	//MakePicEditable($("#picbox div.text")),
@@ -1585,11 +1588,8 @@ function after(){
 	//$("#guide").trigger("click")
 	];
 	
-	var haveload=function (){
-		$(document).dequeue('at2');
-	}
-	$(document).queue('at2',myload);
-	haveload();
+	$(document).queue('at2',myload3);
+	$(document).dequeue('at2');
 }
 
 function fadeshow(obj){
