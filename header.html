@@ -48,23 +48,24 @@
         {/if}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="../navbar-static-top/">English</a></li>
+        <li><a href="/html/en">English</a></li>
       </ul>
     </div>
     <!--/.nav-collapse --> 
   </div>
 </nav>
 <!--幻灯内容-->{pc:content  action="lists" catid="7" order="listorder asc" num="6" moreinfo="1"}
-<div class="banner" style="height: 415px;">
+<div class="banner">
   <ul>
     {loop $data $r}
     <li style="background-image: url('{$r['thumb']}');">
       <div class="inner">
         <h1>{$r['title']}</h1>
         <p>{$r['content']}</p>
-        {if $r['btn']}<a class="btn btn-primary btn-sm" href="{$r['url']} role="button"">{$r['btn']}</a>{/if} </div>
+        {if $r['btn']}<a class="btn btn-primary btn-sm" href="{$r['url']}" role="button">{$r['btn']}</a>{/if} </div>
     </li>
     {/loop} 
     {/pc}
   </ul>
 </div>
+

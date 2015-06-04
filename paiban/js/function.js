@@ -1604,6 +1604,24 @@ function ShowPanels(){
 	PicNum=new GetPics();
 	//PicNum.getall;
 	Prg=new RefreshProgress();
+/*	var myload4=[
+$("#foldersbox").fadeIn(speed),
+$("#filter").fadeIn(speed),
+PicNum.Get_fenlei(),
+$("#prg_item_div").fadeIn(speed),
+$("#prg_name_div").fadeIn(speed),
+PicNum.Get_named(),
+$("#recycle").fadeIn(speed),
+PicNum.Get_recycle(),
+$("#exbtn").fadeIn(speed),
+$("#picbox").fadeIn(speed),
+	];
+	
+$(document).queue('at4',myload4);
+$(document).dequeue('at4');*/
+	
+	
+	
 	$("#navbar").fadeIn(speed,function(){
    		$("#foldersbox").fadeIn(speed,function(){
    			$("#filter").fadeIn(speed,function(){
@@ -1627,8 +1645,8 @@ $("#picbox").fadeIn(speed,function(){
 	 		});
 	 	});
 	 });
-	}
-
+	
+}
 
 //检查丢失图片
 function checkmissed(){

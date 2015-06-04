@@ -1,0 +1,21 @@
+{template "content","header"}
+<div class="container">
+<div class="row"> {template "content","catpos"}
+  <div class="col-md-3">
+    <div class="list-group"> {loop $arrchild_arr $cid} <a href="{$CATEGORYS[$cid][url]}" class="list-group-item{if $catid==$cid} active{/if}">{$CATEGORYS[$cid][catname]}</a> {/loop} </div>
+  </div>
+  <div class="col-md-9">
+    <div class="page-header">
+      <h1>{$title}</h1>
+    </div>
+    <div class="content"> {pc:content  action="lists" catid="66" order="listorder asc" num="20" moreinfo="1"}
+      <div class="list-group"> {loop $data $r} <a href="javascript:void(0)" class="list-group-item">
+        <h4 class="list-group-item-heading lead"><strong>{$r['title']}</strong></h4>
+        <p class="list-group-item-text">{$r['num']}</p>
+        <p class="list-group-item-text">{$r['name']}</p>
+        </a> {/loop} 
+        {/pc} </div>
+    </div>
+  </div>
+</div>
+{template "content","footer"}

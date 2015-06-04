@@ -1,0 +1,28 @@
+{template "content","header"}
+<div class="container">
+{template "content","catpos"}
+<div class="row">
+<!--内容开始-->
+{pc:content action="lists" catid="$catid" num="50" order="id DESC" page="$page"}
+{loop $data $r}
+<div class="col-sm-6 col-md-3">
+    <a href="{$r[url]}">
+    <div class="thumbnail">
+      <img src="{thumb($r[thumb],295,400,0)}" alt="...">
+      <div class="caption">
+        <h4>{$r[title]}</h4>
+        <p>{$r[content]}</p>
+      </div>
+    </div>
+    </a>
+  </div>
+
+{/loop}
+</div>
+
+<div id="pages" class="text-c">{$pages}</div>
+{/pc}
+</div>
+  </div>
+
+{template "content","footer"}
