@@ -1,7 +1,7 @@
 //
 //进度条加载
 Pace.on("done", function (){
-	after(); 
+	after();
 	});
 newFolder = "";
 newLI = "";
@@ -34,14 +34,14 @@ function savepic() {
 		frow.name = $(this).find(".text").text();
 		fdata.push(frow);
 	});
-	
+
 	var jdata = [];
 	$("#picbox li:not('.ui-state-highlight')").each(function(i, val) {
 		if (typeof($(val).find('img').attr('bigsrc')) == "undefined") {
 			return true;
 		}
 		var row = {};
-		row.url=$(val).find("img").attr("bigsrc")
+		row.url=$(val).find("img").attr("bigsrc");
 		var reg=new RegExp(loc,"g"); //创建正则RegExp对象
 		row.url=row.url.replace(reg,"");
 		row.alt = $(val).find("img").attr("alt");
@@ -51,7 +51,7 @@ function savepic() {
 		if ($(val).attr("fenlei") && $(val).attr("fenlei") !== "未分类") {
 			row.fenlei = $(val).attr("fenlei");
 		}
-		
+
 		if (typeof($(val).attr('title')) !== "undefined") {
 			row.title = $.trim($(val).attr("title"));
 		}
@@ -65,7 +65,7 @@ function savepic() {
 
 		jdata.push(row);
 	});
-	
+
 //进度数组
 	var pdata=[];
 	var prow = {};
@@ -79,7 +79,7 @@ function savepic() {
 	allrow.pics=jdata;
 	allrow.progress=pdata;
 	alldata={"folder":fdata,"pics":jdata,"progress":pdata};
-	
+
 	$.ajax({
 		url: "/phpcms/templates/default/content/paiban/paiban.php",
 		type: "POST",
@@ -95,7 +95,7 @@ function savepic() {
 			$("#debug").html(textStatus);
 		},
 		success: function(data, textStatus) {
-			
+
 			}
 	});
 }
@@ -125,7 +125,7 @@ function getpic() {
 			$("#addfolder").before(newFolder);
 			newFolder = "";
 				}
-	
+
 	var myload2=[
 		//生成图片
 		$.each(data.pics, function(i, val) {
@@ -134,7 +134,7 @@ function getpic() {
 		$("#picbox").append(newLI),
 		newLI = ""
 	];
-	
+
 	$(document).queue('at3',myload2);
 	$(document).dequeue('at3');
 		}
@@ -143,7 +143,7 @@ function getpic() {
 
 //获取文件夹列表
 function GetFolderlist(){
-	var arr=new　Array();
+	var arr=[];
 	$("#foldersbox li").each(function(i) {	//文件夹图标统计
 		arr.push($(this).find(".text").text());
 		});
@@ -160,13 +160,13 @@ function GetFields(){
 	brr="";
 	for(i=0;i<ary.length;i++){
 		bry=ary[i].split("|");
-		Fields[i]=new Array();
+		Fields[i]=[];
 		Fields[i].push(bry[0]);
 		Fields[i].push(bry[1]);
 		//$("#fieldname").after("<div class='form-group'><label for='"+"dia_"+bry[1]+"' class='col-sm-3 control-label'>"+bry[0]+":</label><div class='col-sm-9'><input type='text' class='form-control' id='"+"dia_"+bry[1]+"' ></div></div>");
-		
+
 		}
-		
+
 	}
 //生成幻灯大图里的字段
 function FillSlideFields(){
@@ -202,27 +202,27 @@ function addpic(val) {
 	}
 
 	a += "><div class='photo'>";
-	
+
 	var thumb = val.url.replace(/[^\/]*[\/]+/g, '');
 	thumb = val.url.replace(thumb, "thumb_160_140_" + thumb);
 	var reg=new RegExp(loc,"g"); //创建正则RegExp对象
 	thumb=thumb.replace(reg,"");
 	var img = "<img src='" +loc+ thumb + "' bigsrc='" +loc+ val.url + "' alt='" + val.alt + "' />";
-	var text = "<div class='text'>"
+	var text = "<div class='text'>";
 	if (val.name) {
 		text += val.name;
 	} else {
 		text += val.alt;
 	}
 	text += "</div>";
-	var b = "</div></li>"
+	var b = "</div></li>";
 	var allpic = a + img + text + b;
 	newLI += allpic;
-	
+
 	if (typeof(memo) !== "undefined") {
 		newMemo += memo;
 	}
-	
+
 }
 
 //建立备注列表
@@ -441,7 +441,7 @@ function delfolder(folderobj) {
 	ResizeFoldersbox();
 	PicNum.getall();	//刷新气泡
 	NotSave();
-	
+
 }
 
 //新建文件夹name:名称   action:false 加载时批量, true 单独增加
@@ -454,23 +454,22 @@ function addfolder(name,action) {
 	}
 	if (name == "未分类") {
 		return false;
-	}
 	var tempfolder;
-	
+	}
 	var a = "<li class='ui-corner-all'><div class=text>";
 	var c = "新建文件夹";
 	var d = "</div><div class='bubble'>0</div></li>";
 	if (!action) {
 		tempfolder = a + name + d;
-		newFolder += tempfolder;
 	} else {
+		newFolder += tempfolder;
 		tempfolder = a + name + d;
 		$("#addfolder").before(tempfolder);
 	}
-};
+}
 //添加历史记录
 function addhistory(val) {
-	$("#historylist").append("<tr><td>自动保存</td><td>"+val.time+"</td><td><button type='button' role='"+val.id+"' class='RestoreBtn btn btn-default btn-xs'><i class='fa fa-reply'></i> 恢复</button></td></tr>");	
+	$("#historylist").append("<tr><td>自动保存</td><td>"+val.time+"</td><td><button type='button' role='"+val.id+"' class='RestoreBtn btn btn-default btn-xs'><i class='fa fa-reply'></i> 恢复</button></td></tr>");
 }
 
 
@@ -518,12 +517,12 @@ function MakeNextShow(obj) {
 	img.src = t.bigsrc;
 	img.onload = function() {
 		$("#dia_img").attr("src", t.bigsrc);
-	}
+	};
 	var obj2 = $("#picbox li:visible");
 	if ($(obj2).size() < 2) {
 		obj2 = $("#picbox li");
 	}
-	
+
 	var truesrc2 = $("#dia_img").attr("src");
 	var thisobj2;
 	if (truesrc2.indexOf("thumb_160_140_") > 0) {
@@ -582,7 +581,7 @@ function GetSlide(me) {
 	this.reget = function() {
 		truesrc = $("#dia_img").attr("src");
 		allobj = $("#picbox li:visible");
-		
+
 /*		if ($(allobj).size() < 2) {
 			allobj = $("#picbox li");
 		}*/
@@ -591,12 +590,12 @@ function GetSlide(me) {
 		} else {
 			thisobj = $(allobj).has("img[bigsrc='" + truesrc + "']");
 		}
-	}
+	};
 	//当前幻灯在列表中的原始对象
 	this.obj = function() {
 		this.reget();
 		return $(thisobj);
-	}
+	};
 	//上一个对象
 	this.pre = function() {
 		this.reget();
@@ -607,7 +606,7 @@ function GetSlide(me) {
 			preobj= $(allobj).eq($(allobj).index($(thisobj)) - 1);
 		}
 		return preobj;
-	}
+	};
 	//下一个对象
 	this.next = function() {
 		this.reget();
@@ -641,7 +640,7 @@ function pimsize(imgname, widths, heights)
 		w = w / multiple;
 		h = heights;
 	}
-	
+
 	if (w !== 0) {
 		$("#dia_img").attr("width", w);
 	}
@@ -675,7 +674,7 @@ function GetPics(){
 	this.Get_total=function(){//图片总数
 		this.total=$("#picbox li:not('.ui-state-highlight')").size()-$("#picbox li[fenlei='回收站']").size();
 		$("#allfolder .bubble").text(this.total);	//更新全部图片气泡
-		}
+		};
 
 	this.Get_fenlei=function(){//已分类的图片数量
 		this.Get_total();
@@ -687,8 +686,10 @@ function GetPics(){
 		$("#nofenlei .bubble").text(this.nofenlei);	//更新未分类气泡
 		var fenleiprs=  Math.floor(this.fenlei * 100 /this.total);	//进度条
 		RedrawProgress($("#prg_item"),fenleiprs);
-		if(ifSlideShown()){RedrawProgress($("#prg_now"),fenleiprs)};
+		if (ifSlideShown()) {
+			RedrawProgress($("#prg_now"), fenleiprs)
 		}
+	};
 
 	this.Get_recycle=function(){//回收站总数
 		this.recycle=$("#picbox li[fenlei='回收站']").size();
@@ -699,7 +700,7 @@ function GetPics(){
 			} else {
 				$("#recycle").css("background-image","url(/phpcms/templates/default/content/paiban/images/recycle.png)");
 				}
-			}
+			};
 	this.Get_named=function(){//已命名数量
 			var named = 0;
 			$("#picbox li:not('.ui-state-highlight')").each(function(index, element) {
@@ -714,8 +715,10 @@ function GetPics(){
 			$("#norename .bubble").text(this.noname);	//	顺便更新未命名气泡显示
 			var nameprs=  Math.floor(this.named * 100 /this.total);	//进度条
 			RedrawProgress($("#prg_name"),nameprs);
-			if(ifSlideShown()){RedrawProgress($("#prg_now"),nameprs)};
+		if (ifSlideShown()) {
+			RedrawProgress($("#prg_now"), nameprs)
 		}
+	};
 
 	this.getall=function(){
 		//this.Get_total();
@@ -743,11 +746,11 @@ function RedrawProgress(obj,progress){
 function RefreshProgress(){
 	this.Fenlei=function(){		//分类进度
 		var fenleiprs=  Math.floor(N.fenlei * 100 /N.total);
-		RedrawProgress($("#prg_item"),fenleiprs);	
-		}
+		RedrawProgress($("#prg_item"),fenleiprs);
+		};
 	this.name=function(){
 		var nameprs=Math.floor(N.named * 100 /N.total);
-		RedrawProgress($("#prg_name"),nameprs);	
+		RedrawProgress($("#prg_name"),nameprs);
 		}
 	}
 
@@ -897,7 +900,7 @@ $("#desk").sortable({
 	sort: function( event, ui ) {},
 	activate: function(event, ui) {},
 	over: function(event, ui) {
-		
+
 		},
 	update: function(event, ui) {
 		//savepic();
@@ -996,13 +999,13 @@ function contactmenu(){
         menu['contactmenu_clear'] 			= {icon:'fa-folder-o',text:'清空回收站',click:function(target,element){ClearRecycled();}};
 		$('#recycle').contextMenu(menu);
 	}
-	
+
 //标记任务进度
 $(document).ready(function(){
-	
 
-	
-	
+
+
+
 //文件夹可排序
 $("#foldersbox").sortable({
 	cursor: "move",
@@ -1033,10 +1036,10 @@ $("#foldersbox").sortable({
 			} else {
 				event.preventDefault();
 				}
-		
+
 	});
-	
-	
+
+
 	//文件夹编辑文件名时失去焦点后处理
 /*	$("#foldersbox").on("blur", "input",function (){
 		var oldname=$(this).closest("li").find(".text").text();
@@ -1054,13 +1057,13 @@ $("#foldersbox").sortable({
 			alert("重名文件夹");
 			}
 	});*/
-	
+
 	//文件夹编辑文件名时选中它
 	$("#foldersbox").on("keypress", "input",
 	function() {
 		selfolder($(this).closest("li"));
 	});
-	
+
 	//图片文本框失去焦点
  // $("#picbox").on("blur", "input",function (event){
 		//$(event.currentTarget).parent(".text").text($(event.currentTarget).val());
@@ -1074,7 +1077,7 @@ $("#foldersbox").sortable({
 	function(event) {
 		selpic(this);
 	});
-	
+
 	//双击图片时显示幻灯
 	$("#picbox").on("dblclick", "li",
 	function() {
@@ -1083,7 +1086,7 @@ $("#foldersbox").sortable({
 		$('#dialog').modal('show');
 		Dialoger(this);
 	});
-	
+
 //历史记录对话框打开的时候
 $('#ModalHistory').on('show.bs.modal', function (e) {
 	 gethistory(1);
@@ -1103,7 +1106,7 @@ $('#ModalAutoNum').on('show.bs.modal', function (e) {
 $("body").on('keyup','#autonum_style',
 	function(e) {
 		var cstyle=$(this).val();
-		var fil=$("#autonum_filter").val()
+		var fil=$("#autonum_filter").val();
 		var step=Number($("#autonum_step").val());
 		var start=Number($("#autonum_start").val());
 		var x=autonum(cstyle);	//取编号样式
@@ -1225,7 +1228,7 @@ $('body').on('keypress',"#dialog",
 				SlideNext();
 				break;
   		}
-		
+
 });
 
 //幻灯中点击下一张按钮的时候
@@ -1290,13 +1293,13 @@ function() {
 	$.each(Fields,function(key, value) {
 		//var xx=value[1]+"*='"+$(this).val()+"'";
         $("#picbox li["+value[1]+"*="+v+"]").show();
-    });	
+    });
 });
 
 //备注内容改变时
 $("body").on('change',"#note",
 function() {
-	var obj = GetObjFromSrc($("#dia_img").attr("src"));;
+	var obj = GetObjFromSrc($("#dia_img").attr("src"));
 	$(obj).attr("title", $(this).val());
 	BuildMemoList();
 	NotSave();
@@ -1363,14 +1366,14 @@ function() { //检查文件夹是否存在
 	//如果是重命名操作
 	if($("#foldersbox .active").size()>0){
 		var oldname=$("#foldersbox .active").find(".text").text();
-		var newname=$("#NewFolderName").val()
+		var newname=$("#NewFolderName").val();
 		$("#picbox li[fenlei='"+oldname+"']").attr("fenlei",newname);
 		$("#foldersbox .active").find(".text").text(newname);
 		NotSave();
 		$("#ModalCreatFolder").modal('hide');
 		return false;
 		}
-		
+
 //新建文件夹操作
 	addfolder($("#NewFolderName").val(),true);
 	ResizeFoldersbox();
@@ -1499,7 +1502,7 @@ function() {
 				$("#picbox .active").hide();
 			} else {
 				ui.draggable.attr("fenlei","未分类");
-				ui.draggable.hide();	
+				ui.draggable.hide();
 			}
 			NotSave();
 			PicNum.getall();
@@ -1534,7 +1537,7 @@ if(!ifSlideShown()){  //是否打开了详情页
 		} else {
 			delfolder($("#foldersbox .active"));
 		}
-		
+
 	} else {
 		SlideDel();
 	}
@@ -1571,7 +1574,7 @@ function loadimage(){
 	}
 
 function after(){
-	
+
 	var myload3=[
 	Init(),
 	//后续任务
@@ -1587,7 +1590,7 @@ function after(){
 	Loaded=true
 	//$("#guide").trigger("click")
 	];
-	
+
 	$(document).queue('at2',myload3);
 	$(document).dequeue('at2');
 }
@@ -1616,12 +1619,12 @@ PicNum.Get_recycle(),
 $("#exbtn").fadeIn(speed),
 $("#picbox").fadeIn(speed),
 	];
-	
+
 $(document).queue('at4',myload4);
 $(document).dequeue('at4');*/
-	
-	
-	
+
+
+
 	$("#navbar").fadeIn(speed,function(){
    		$("#foldersbox").fadeIn(speed,function(){
    			$("#filter").fadeIn(speed,function(){
@@ -1630,7 +1633,7 @@ $(document).dequeue('at4');*/
 						$("#prg_name_div").fadeIn(speed,function(){
 							PicNum.Get_named();
 							//$("#prg_guige_div").fadeIn(speed,function(){
-								
+
 								$("#recycle").fadeIn(speed,function(){
 									PicNum.Get_recycle();
 									$("#exbtn").fadeIn(speed,function(){
@@ -1639,18 +1642,18 @@ $("#picbox").fadeIn(speed,function(){
 });
 								});
 							});
-					
+
 					});
 				});
 	 		});
 	 	});
 	 });
-	
+
 }
 
 //检查丢失图片
 function checkmissed(){
-	
+
 	var disall=0;
 	$("#foldersbox li").each(function(i) {
 		disall+=$("#picbox li[fenlei='" + $(this).find(".text").text() + "']").size();
@@ -1698,7 +1701,7 @@ function RefillPage(x,y){
 
 function ifSlideShown(){
 	if($("#dialog").css("display")=="block"){
-		return true;	
+		return true;
 		} else {
 		return false;
 	}
@@ -1789,7 +1792,7 @@ function CreatPage(n){
 	$("#desk .page").height(PageH);
 	$("#desk .page").width(PageW);
 	}
-	
+
 //自动编号
 function autonum(String)
         {
@@ -1801,7 +1804,7 @@ function autonum(String)
             for( i = 0; i < String.length; i ++ )
             {
                 c = String.charAt( i );
-				
+
                 if (Letters.indexOf( c ) !==-1&&!started)
                 {
                     numfrom=i;
@@ -1833,20 +1836,20 @@ function Autonum_folderlist(){
 		$("#Autonum_folderlist").append("<div class='checkbox'><label><input type='checkbox' checked value='"+item+"'>"+item+"</label></div>");
 	});
 	}
-	
 
-/**格式化数字为一个定长的字符串，前面补０ 
-*参数: 
-* Source 待格式化的字符串 
-* Length 需要得到的字符串的长度 
-*/ 
-function FormatNum(Source,Length){ 
-var strTemp=""; 
-for(i=1;i<=Length-Source.toString().length;i++){ 
-strTemp+="0"; 
-} 
-return strTemp+Source; 
-} 
+
+/**格式化数字为一个定长的字符串，前面补０
+*参数:
+* Source 待格式化的字符串
+* Length 需要得到的字符串的长度
+*/
+function FormatNum(Source,Length){
+var strTemp="";
+for(i=1;i<=Length-Source.toString().length;i++){
+strTemp+="0";
+}
+return strTemp+Source;
+}
 
 function str_repeat (input, multiplier) {
     return new Array(multiplier + 1).join(input);
@@ -1859,11 +1862,11 @@ var fil=$("#autonum_filter").val().split(",");
 for( z = 0; z < fil.length; z++ )
 	{
 		if (chr.toString().indexOf(fil[z].toString())==-1){
-			continue;
+
 			} else {
 			return false;
 			}
-		
+
 		}
 return true;
 }
