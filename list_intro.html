@@ -5,21 +5,12 @@
   {loop $data $k $r}
   <hr class="featurette-divider">
   <div class="row featurette">
-  {if $n%2==0}
     <div class="col-md-7">
       <h2 class="featurette-heading">{$r['title']}</h2>
       <p class="lead">　　{$r['content']}</p>
       {if $r['btn']}<p><a class="btn btn-default pull-right" href="#" role="button">{$r['btn']} &raquo;</a></p>{/if}
     </div>
     <div class="col-md-5"> <img class="featurette-image img-responsive" src="{$r['thumb']}" data-src="{$r['thumb']}" alt="Generic placeholder image"> </div>
-    {else}
-    <div class="col-md-5"> <img class="featurette-image img-responsive" src="{$r['thumb']}" data-src="{$r['thumb']}" alt="Generic placeholder image"> </div>
-    <div class="col-md-7">
-      <h2 class="featurette-heading">{$r['title']}</h2>
-      <p class="lead">　　{$r['content']}</p>
-      {if $r['btn']}<p><a class="btn btn-default pull-right" href="#" role="button">{$r['btn']} &raquo;</a></p>{/if}
-    </div>
-    {/if}
   </div>
 {/loop} 
 {/pc}
